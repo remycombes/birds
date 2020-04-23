@@ -60,7 +60,7 @@
     
 
     <div class="picture">
-      <img class="photo" [src]="'/assets/photos/'+quizz.current+'.jpg'" alt="">
+      <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
     </div>
 
     <div class="answers" *ngIf="quizz.mode=='question'">
@@ -71,7 +71,7 @@
     <div class="result" *ngIf="quizz.mode=='answer'" (click)="nextQuestion()">
       <div class="correct" *ngIf="quizz.givenAnswer == quizz.current">        
         <div class="picture">
-          <img class="photo" [src]="'/assets/photos/'+quizz.current+'.jpg'" alt="">
+          <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
         </div>
         <div class="details">
           <div class="label">CORRECT</div>
@@ -87,10 +87,10 @@
         <div class="label">FAUX</div>
         <div class="pictures">
           <div class="picture">
-            <img class="photo" [src]="'/assets/photos/'+quizz.current+'.jpg'">
+            <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'">
           </div>
           <div class="picture">
-            <img class="photo" [src]="'/assets/photos/'+quizz.givenAnswer+'.jpg'">
+            <img class="photo" [src]="'assets/photos/'+quizz.givenAnswer+'.jpg'">
           </div>          
         </div>
         <div class="names">
