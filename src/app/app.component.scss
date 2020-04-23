@@ -1,0 +1,162 @@
+.container{
+    top: 0; 
+    left: 0; 
+    position: fixed; 
+    height: 100%; 
+    width: 100%;     
+    display: flex; 
+    flex-direction: column;
+    font-family: Calibri;
+}
+
+.quizz{
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    height: 100%; 
+    width: 100%;
+    display: flex; 
+    flex-direction: column;
+}
+
+.picture{
+    position: relative; 
+    flex: 1;
+    background: black; 
+}
+
+.picture .photo{
+    height: 100%;       
+    position: absolute;     
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.answers{
+    height: 55px;
+    padding: 5px; 
+    display: flex; 
+    flex-direction: row;
+    background: black; 
+}
+.answer{
+    position: relative;     
+    flex: 1; 
+    box-sizing: border-box; 
+    margin: 0 5px 0 5px;
+    height: 100%; 
+    background: grey; 
+}
+
+.answer div{
+    position: absolute; 
+    width: 100%;
+    top: 50%; 
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+.result{
+    position: absolute; 
+    box-sizing: border-box; 
+    border: solid 5px black; ;
+    top: 0; 
+    left: 0; 
+    height: 100%; 
+    width: 100%;
+    background: white;    
+}
+
+.result .correct{
+    position: absolute; 
+    width: 100%; 
+    height: 100%;
+    display: flex; 
+    flex-direction: row; 
+}
+
+.correct .picture{
+    position: relative; 
+    flex: 1;     
+    overflow:hidden; 
+}
+
+.correct .picture .photo{    
+    height: 100%; 
+    left: 50%; 
+    transform: translateX(-50%);
+}
+
+.correct .details{
+    width: 30%; 
+
+}
+
+.result .wrong{
+    position: absolute; 
+    width: 100%; 
+    height: 100%;
+    display: flex; 
+    flex-direction: column; 
+}
+
+.result .wrong .label{ height: 40px; text-align: center; font-size: 30px;}
+.result .wrong .pictures{flex: 1; position: relative; display: flex; flex-direction: row;}
+.result .wrong .pictures .picture{ flex: 1; position: relative; overflow: hidden}
+.result .wrong .pictures .picture .photo{ position: absolute; max-height: 100%; max-width: 100%; }
+
+.result .wrong .names{ height: 30px; display: flex; flex-direction: row;}
+.result .wrong .names .name{ flex: 1; text-align: center; }
+
+
+// .birds{
+//     height: 100%; 
+//     overflow-y: auto; 
+//     width: 300px;
+// }
+
+// .birds .bird{
+//     cursor:pointer; 
+// }
+
+// .library{
+//     flex: 1
+// }
+
+// .progress{flex: 1}
+
+// .quizz{flex: 4; position: relative;}
+
+// .photo-area{
+//     position: relative; 
+//     width: 100%; 
+//     flex:1; 
+    
+//     background: black; 
+// }
+// .photo{
+//     position: absolute; 
+//     top: 50%; 
+//     left: 50%; 
+//     transform: translate(-50%, -50%);
+//     max-width: 100%; 
+//     max-height: 100%;
+// }
+
+// .answers{
+//     height: 70px; 
+//     width: 100%;
+// }
+
+// .answer{
+//     vertical-align: top; 
+//     width: 25%; 
+//     height:100%; 
+//     cursor: pointer; 
+// }
+
+// .result{
+//     cursor:pointer; 
+//     height: 70px; 
+//     width: 100%;
+// }

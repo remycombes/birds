@@ -1,0 +1,13 @@
+{
+    "bruantZizi" : { "name": "bruant zizi", "image": "bruantZizi.jpg"}, 
+    "canardColvert": { "name": "canard colvert", "image": "canardColvert.jpg"}, 
+    "chevalierCulBlanc": { "name": "chevalier cul blanc", "image": "chevalierCulBlanc.jpg"}, 
+    "chouetteEffraie": { "name": "chouette effraie", "image": "chouetteEffraie.jpg"}, 
+    "chouetteHulotte": { "name": "chouette hulotte", "image": "chouetteHulotte.jpg"}, 
+    "hibouGrandDuc": { "name": "hibou grand duc", "image": "hibouGrandDuc.jpg"}, 
+    "merleNoir": { "name": "merle noir", "image": "merleNoir.jpg"}, 
+    "picEpeiche": { "name": "pic epeiche", "image": "picEpeiche.jpg"}, 
+    "picVert": { "name": "pic vert", "image": "picVert.jpg"}, 
+    "pieBavarde": { "name": "pie bavarde", "image": "pieBavarde.jpg"}
+
+}
