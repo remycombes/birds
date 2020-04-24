@@ -30,6 +30,8 @@ interface Quizz{
   inProgress: string[]; 
   learned: string[]; 
   current: string; 
+  previous: null; 
+  previous2: null; 
   givenAnswer: string; 
   answers: string[]; 
   statistics: {[key:string]: [boolean]}
@@ -76,6 +78,7 @@ class PreviousBirdAction{ readonly type = LibraryActionTypes.PREVIOUS_BIRD;}
 type LibraryActions = AddBirdsToLibraryAction | SelectBirdInLibraryAction | NextBirdAction | PreviousBirdAction ; 
 
 
+const SPAN = 7 ; 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -92,6 +95,8 @@ export class AppComponent implements OnInit{
     inProgress: [], 
     learned: [], 
     current: null, 
+    previous: null, 
+    previous2: null, 
     givenAnswer: null, 
     answers: [], 
     statistics: {}
@@ -151,11 +156,13 @@ export class AppComponent implements OnInit{
             for(let bird of Object.keys(acc.birds)){quizzCopy.all.push(bird);}
             quizzCopy.toLearn = JSON.parse(JSON.stringify(quizzCopy.all)); 
             quizzCopy.inProgress = [];
-            while((quizzCopy.inProgress.length < 4)&& this.pickItemFromToLearn(quizzCopy.toLearn, quizzCopy.inProgress)!=null){
+            while((quizzCopy.inProgress.length < SPAN)&& this.pickItemFromToLearn(quizzCopy.toLearn, quizzCopy.inProgress)!=null){
               quizzCopy.inProgress.push(this.pickItemFromToLearn(quizzCopy.all, quizzCopy.inProgress));
             } 
             quizzCopy.learned = []; 
             quizzCopy.current = quizzCopy.inProgress[0]?quizzCopy.inProgress[0]:null; 
+            quizzCopy.previous = null; 
+            quizzCopy.previous2 = null; 
             quizzCopy.givenAnswer = null; 
             quizzCopy.answer = []; 
             quizzCopy.statistics = {}
@@ -185,15 +192,17 @@ export class AppComponent implements OnInit{
           ///////////////////////////////////////////////////////////////////////////
           // GET ANSWERS ///////////////////////////////////////////////////////////
           case QuizzActionTypes.GET_ANSWERS:
-            while(quizzCopy.inProgress.length<4 && this.pickItemFromToLearn(quizzCopy.toLearn, quizzCopy.inProgress)!=null){
+            while(quizzCopy.inProgress.length<SPAN && this.pickItemFromToLearn(quizzCopy.toLearn, quizzCopy.inProgress)!=null){
               quizzCopy.inProgress.push(this.pickItemFromToLearn(quizzCopy.toLearn, quizzCopy.inProgress)); 
             }
-            quizzCopy.current = this.pickItemFromStack(acc.current, acc.inProgress); 
+            quizzCopy.previous2 = quizzCopy.previous; 
+            quizzCopy.previous = quizzCopy.current; 
+            quizzCopy.current = this.pickItemFromStack(acc.current, acc.inProgress, acc.previous, acc.previous2); 
             quizzCopy.answers = this.generateAnswers(quizzCopy.current, quizzCopy.all, 4);
             return quizzCopy;     
           ///////////////////////////////////////////////////////////////////////////
           // GIVE ANSWER ////////////////////////////////////////////////////////////
-          case QuizzActionTypes.GIVE_ANSWER:            
+          case QuizzActionTypes.GIVE_ANSWER:
             quizzCopy.givenAnswer = curr.payload; 
             quizzCopy.statistics[acc.current].unshift(curr.payload==quizzCopy.current); 
             quizzCopy.statistics[acc.current].splice(2);
@@ -319,10 +328,10 @@ export class AppComponent implements OnInit{
     
   }
 
-  pickItemFromStack(current: string, stack: string[]): string{
+  pickItemFromStack(current: string, stack: string[], previous?: string, previous2?: string): string{
     let shallowStack = JSON.parse(JSON.stringify(stack)); 
     if(shallowStack.length > 1){
-      while(shallowStack[0]==current){shuffle(shallowStack);}
+      while(shallowStack[0]==current || shallowStack[0]==previous || shallowStack[0]==previous2){shuffle(shallowStack);}  ///WARNING : shoudl cause a bug at the end of the quizz
       return shallowStack[0];
     }
     else if(shallowStack.length == 1){
