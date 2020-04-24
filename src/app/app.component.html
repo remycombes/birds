@@ -59,7 +59,9 @@
   <div *ngIf="quizz.current && (quizz.mode=='question' || quizz.mode=='answer')" class="quizz">    
     
 
+    <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
     <div class="picture">
+      
       <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
     </div>
 
