@@ -1,116 +1,47 @@
-<!-- <div *ngFor="let bird of birds$ | async">
-  {{bird | json}}
-</div> -->
-
-<div class="container" *ngIf="quizz"> 
-  <!-- <div class="birds">
-    <div><b>Oiseaux</b></div>
-    <div class="bird" *ngFor="let bird of quizz.birds | keyvalue" (click)="setMode('library'); selectBirdInLibrary(bird.key)">
-      <div [ngStyle]="{'font-weight': (bird.key == library.current)?'bold':''}">{{quizz.birds[bird.key].name}}</div>
-    </div>
-  </div>
-
-  <div class="library" *ngIf="quizz.mode=='library'">
-    Bibli
-    {{library.current}}
-    <ng-container *ngIf="library.current!=null">
-      <div>{{library.birds[library.current].name}}</div>
-      <div>{{library.birds[library.current].order}} {{library.birds[library.current].family}} {{library.birds[library.current].genus}} {{library.birds[library.current].species}}</div>
-      <div>{{library.current}}.jpg</div>
-      <div class="photo-area">
-        <img class="photo" [src]="'/assets/photos/'+library.current+'.jpg'" alt="">
-      </div>
-    </ng-container>
-    
-    <button (click)="setMode('question')">quizz</button>
-  </div> -->
 
 
-  <!-- <div class="progress" *ngIf="quizz.mode=='question' || quizz.mode=='answer'">    
-    <div><b>Pile</b></div>
-    <div *ngFor="let inProgress of quizz.inProgress">
-      {{inProgress}}
-    </div>
-    <br>    
-    <div><b>Appris</b></div>
-    <div *ngFor="let learned of quizz.learned">
-      {{learned}}
-    </div>
-    <br>
-    <br>
-    <div><b>Current</b></div>
-    {{quizz.current}}
-    <br>
-    <br>
-
-    
-    <div><b>Given answers: </b></div>
-    <div *ngFor="let stat of quizz.statistics | keyvalue">      
-        <span [ngStyle]="{'display': stat.value.length > 0 ? 'block' : 'none'}">{{stat.key}} : </span>
-        <ng-container *ngFor="let correct of stat.value">
-          <span *ngIf="correct==true" style="color:green">&#10003;</span>
-          <span *ngIf="correct==false" style="color:red">X</span>
-        </ng-container>
-
-    </div>
-  </div> -->
-  
-
-  <div *ngIf="quizz.current && (quizz.mode=='question' || quizz.mode=='answer')" class="quizz">    
-    
-
+<div class="container" id="container" *ngIf="quizz">
+  <div class="full-screen" (click)="fullScreen?closeFullScreen():openFullScreen()">full</div>
+  <div *ngIf="quizz.current && quizz.mode=='question'" class="quizz">
     <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
     <div class="picture">
-      
       <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
     </div>
-
     <div class="answers" *ngIf="quizz.mode=='question'">
       <div class="answer" *ngFor="let answer of quizz.answers" (click)="giveAnswer(answer)" >
         <div>{{quizz.birds[answer].name}}</div>
       </div>
     </div>
-    <div class="result" *ngIf="quizz.mode=='answer'" (click)="nextQuestion()">
-      <div class="correct" *ngIf="quizz.givenAnswer == quizz.current">        
-        <div class="picture">
-          <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
-        </div>
-        <div class="details">
-          <div class="label">CORRECT</div>
-          <div class="name">{{quizz.birds[quizz.current].name}}</div>
-          <div class="order">{{quizz.birds[quizz.current].order}}</div>
-          <div class="familly">{{quizz.birds[quizz.current].family}}</div>
-          <div class="genus">{{quizz.birds[quizz.current].genus}}</div>
-          <div class="species">{{quizz.birds[quizz.current].species}}</div>
-        </div>
-        
-      </div>
-      <div class="wrong" *ngIf="quizz.givenAnswer != quizz.current">
-        <div class="label">FAUX</div>
-        <div class="pictures">
-          <div class="picture">
-            <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'">
-          </div>
-          <div class="picture">
-            <img class="photo" [src]="'assets/photos/'+quizz.givenAnswer+'.jpg'">
-          </div>          
-        </div>
-        <div class="names">
-          <div class="name">{{quizz.birds[quizz.current].name}}</div>
-          <div class="name">{{quizz.birds[quizz.givenAnswer].name}}</div>
-        </div>
+  </div>
+
+  <div class="correct" *ngIf="quizz.mode=='answer' && quizz.givenAnswer == quizz.current" (click)="nextQuestion()">
+    <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
+    <div class="result">{{quizz.birds[quizz.current].name}}</div>
+    <div class="bird">
+      <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'">
+      <div class="key2">
+        {{quizz.birds[quizz.current].order}} {{quizz.birds[quizz.current].family}} {{quizz.birds[quizz.current].genus}} {{quizz.birds[quizz.current].species}}
+      </div>          
+    </div>
+    <div class="actions">
+      <div class="next">
+        <svg class="svg-arrow-right" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10"><path  d="M 2 0 L 8 5 L 2 10 "/></svg>
       </div>
     </div>
-
-    <!-- <div class="result" *ngIf="quizz.mode=='answer'" (click)="nextQuestion()">
-      <ng-container *ngIf="quizz.givenAnswer != quizz.current">
-        <div>FAUX</div>
-        <div>réponse donnée : {{quizz.birds[quizz.givenAnswer].name}} </div> 
-        <div>réponse attendue : {{quizz.birds[quizz.current].name}}</div>
-      </ng-container>
-      <ng-container *ngIf="quizz.givenAnswer == quizz.current">
-        Correct        
-      </ng-container>      
-    </div> -->
+  </div>
+  <div class="wrong" *ngIf="quizz.mode=='answer' && (quizz.givenAnswer != quizz.current)" (click)="nextQuestion()">
+    <div class="label">FAUX</div>
+    <div class="pictures">
+      <div class="picture">
+        <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'">
+      </div>
+      <div class="picture">
+        <img class="photo" [src]="'assets/photos/'+quizz.givenAnswer+'.jpg'">
+      </div>          
+    </div>
+    <div class="names">
+      <div class="name">{{quizz.birds[quizz.current].name}}</div>
+      <div class="name">{{quizz.birds[quizz.givenAnswer].name}}</div>
+    </div>
   </div>
 </div>
