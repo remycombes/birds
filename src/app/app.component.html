@@ -1,7 +1,15 @@
 
 
 <div class="container" id="container" *ngIf="quizz">
-  <div class="full-screen" (click)="fullScreen?closeFullScreen():openFullScreen()">full</div>
+  <svg class="full-screen" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" viewBox="0 0 10 10" (click)="fullScreen?closeFullScreen():openFullScreen()">
+    <path  d="M 0 0 L 10 10 "/>
+    <path  d="M 0 10 L 10 0 "/>
+    <path  d="M 0 2 L 0 0 L 2 0"/>
+    <path  d="M 8 0 L 10 0 L 10 2"/>
+    <path  d="M 10 8 L 10 10 L 8 10"/>
+    <path  d="M 0 8 L 0 10 L 2 10"/>
+  </svg>
+    
   <div *ngIf="quizz.current && quizz.mode=='question'" class="quizz">
     <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
     <div class="picture">
