@@ -12,7 +12,7 @@
     top: 50%;  transform: translate(-50%, -50%); filter: blur(10px); }
 .answers{ padding-top: 5px; flex-basis: 40px; width: 100%; display: flex;  flex-direction: row; flex-wrap: wrap;
     box-sizing: border-box; align-content: space-between; }
-.answer{
+.answer{ 
     position: relative;     
     justify-content: space-around; 
     flex-basis: 40%;
