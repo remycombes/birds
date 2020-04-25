@@ -38,18 +38,23 @@
     </div>
   </div>
   <div class="wrong" *ngIf="quizz.mode=='answer' && (quizz.givenAnswer != quizz.current)" (click)="nextQuestion()">
-    <div class="label">FAUX</div>
-    <div class="pictures">
-      <div class="picture">
-        <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'">
-      </div>
-      <div class="picture">
-        <img class="photo" [src]="'assets/photos/'+quizz.givenAnswer+'.jpg'">
-      </div>          
+    <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
+    <div class="result">FAUX</div>
+
+    <div class="birds">
+      <figure class="photo">
+        <img [src]="'assets/photos/'+quizz.current+'.jpg'">
+        <figcaption>{{quizz.birds[quizz.current].name}}</figcaption> 
+      </figure>
+      <figure class="photo">
+        <img [src]="'assets/photos/'+quizz.givenAnswer+'.jpg'">
+        <figcaption>{{quizz.birds[quizz.givenAnswer].name}}</figcaption> 
+      </figure>
     </div>
-    <div class="names">
-      <div class="name">{{quizz.birds[quizz.current].name}}</div>
-      <div class="name">{{quizz.birds[quizz.givenAnswer].name}}</div>
+    <div class="actions">
+      <div class="next">
+        <svg class="svg-arrow-right" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10"><path  d="M 2 0 L 8 5 L 2 10 "/></svg>
+      </div>
     </div>
   </div>
 </div>
