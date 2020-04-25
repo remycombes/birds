@@ -18,8 +18,13 @@ interface Bird{
 }
 
 interface Library{
-  birds: {[key:string]: Bird}; 
-  current: string;   
+  birds: {[key:string]: Bird};  
+  current: string;
+  orders: string[], 
+  families: string[], 
+  genus: string[], 
+  species: string[]
+
 }
 
 interface Quizz{
@@ -85,9 +90,6 @@ const SPAN = 7 ;
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-
-  // full screen
-  fullScreen: boolean = false; 
 
   // INIT VALUES
   initialQuizzState: Quizz = {
@@ -230,12 +232,27 @@ export class AppComponent implements OnInit{
   library$: Observable<Library> = this.libraryActions$.pipe(
     scan(
       (acc : Library, curr: LibraryActions)=>{
-        let libraryCopy = JSON.parse(JSON.stringify(acc));
+        let libraryCopy = JSON.parse(JSON.stringify(acc));        
         switch(curr.type){
           ///////////////////////////////////////////////////////////////////////////
           // ADD BIRDS TO LIBRARY ///////////////////////////////////////////////////
           case LibraryActionTypes.ADD_BIRDS:
             libraryCopy.birds = curr.payload; 
+            libraryCopy.orders = []; 
+            libraryCopy.families = []; 
+            libraryCopy.genus = []; 
+            libraryCopy.species = []; 
+            for (let key of Object.keys(curr.payload)){
+              if(libraryCopy.orders.indexOf(curr.payload[key].order) == -1) libraryCopy.orders.push(curr.payload[key].order); 
+              if(libraryCopy.families.indexOf(curr.payload[key].family) == -1) libraryCopy.families.push(curr.payload[key].family); 
+              if(libraryCopy.genus.indexOf(curr.payload[key].genus) == -1) libraryCopy.genus.push(curr.payload[key].genus); 
+              if(libraryCopy.species.indexOf(curr.payload[key].species) == -1) libraryCopy.species.push(curr.payload[key].species);               
+            }
+            libraryCopy.orders.sort(); 
+            libraryCopy.families.sort(); 
+            libraryCopy.genus.sort(); 
+            libraryCopy.species.sort(); 
+            console.log(libraryCopy); 
             return libraryCopy; 
           case LibraryActionTypes.SELECT_BIRD: 
             libraryCopy.current = curr.payload; 
@@ -245,27 +262,16 @@ export class AppComponent implements OnInit{
       }, 
       {birds: [], current: null}
       )
-    ); 
-
-  //       let libraryCopy = JSON.parse(JSON.stringify(acc));
-  //       switch(curr.type){
-  //         ///////////////////////////////////////////////////////////////////////////
-  //         // ADD BIRDS TO LIBRARY ///////////////////////////////////////////////////
-  //         case LibraryActionTypes.ADD_BIRDS:
-  //           return {...acc, 
-  //             birds: curr.payload, 
-  //             current: null
-  //           }
-  //         default: return ; 
-  //       }
-  //     }, {birds: [], current: ""}
-  //   )
-  // );
+    );   
 
   // DISPLAYED DATA //////////////////////////////////////////////////////////////////////
   rawBirds: any = {}; 
   quizz: Quizz; 
   library: Library; 
+
+  // NAVIGATION //////////////////////////////////////////////////////////////////////////
+  page: string = "menu"; 
+  fullScreen: boolean = false; 
 
   ////////////////////////////////////////////////////////////////////////////////////////
   // INIT ////////////////////////////////////////////////////////////////////////////////

@@ -1,60 +1,86 @@
-
-
-<div class="container" id="container" *ngIf="quizz">
-  <svg class="full-screen" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" viewBox="0 0 10 10" (click)="fullScreen?closeFullScreen():openFullScreen()">
-    <path  d="M 0 0 L 10 10 "/>
-    <path  d="M 0 10 L 10 0 "/>
-    <path  d="M 0 2 L 0 0 L 2 0"/>
-    <path  d="M 8 0 L 10 0 L 10 2"/>
-    <path  d="M 10 8 L 10 10 L 8 10"/>
-    <path  d="M 0 8 L 0 10 L 2 10"/>
-  </svg>
-    
-  <div *ngIf="quizz.current && quizz.mode=='question'" class="quizz">
-    <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
-    <div class="picture">
-      <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
-    </div>
-    <div class="answers" *ngIf="quizz.mode=='question'">
-      <div class="answer" *ngFor="let answer of quizz.answers" (click)="giveAnswer(answer)" >
-        <div>{{quizz.birds[answer].name}}</div>
+<div class="container" id="container">
+  <!------------------------------- MENU ----------------------------------->
+  <ng-container *ngIf="page=='menu'">
+    <div class="menu">
+      <img class="background" [src]="'assets/photos/acanthisFlammea.jpg'" alt="">
+      <div (click)="page='quizz'">
+        <span>QUIZZ</span>
+      </div>
+      <div (click)="page='library'">
+        <span>ESPECES</span>
       </div>
     </div>
-  </div>
+  </ng-container>
 
-  <div class="correct" *ngIf="quizz.mode=='answer' && quizz.givenAnswer == quizz.current" (click)="nextQuestion()">
-    <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
-    <div class="result">{{quizz.birds[quizz.current].name}}</div>
-    <div class="bird">
-      <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'">
-      <div class="key2">
-        {{quizz.birds[quizz.current].order}} {{quizz.birds[quizz.current].family}} {{quizz.birds[quizz.current].genus}} {{quizz.birds[quizz.current].species}}
-      </div>          
-    </div>
-    <div class="actions">
-      <div class="next">
-        <svg class="svg-arrow-right" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10"><path  d="M 2 0 L 8 5 L 2 10 "/></svg>
+  <!------------------------------- LIBRARY ----------------------------------->
+  <ng-container *ngIf="page=='library'">
+    ESPECES<br/>
+    <button (click)="page='menu'">Retour au menu</button>    
+  </ng-container>
+  
+  <!------------------------------- QUIZZ ----------------------------------->
+  <ng-container *ngIf="page=='quizz'">
+    <svg class="full-screen" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" viewBox="0 0 10 10" (click)="fullScreen?closeFullScreen():openFullScreen()">
+      <path  d="M 0 0 L 10 10 "/>
+      <path  d="M 0 10 L 10 0 "/>
+      <path  d="M 0 2 L 0 0 L 2 0"/>
+      <path  d="M 8 0 L 10 0 L 10 2"/>
+      <path  d="M 10 8 L 10 10 L 8 10"/>
+      <path  d="M 0 8 L 0 10 L 2 10"/>      
+    </svg>  
+    <svg class="go-to-menu" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" viewBox="0 0 10 10" (click)="page='menu'">
+      <path  d="M 0 3.5 L 5 0.5 L 10 3.5 L 10 10 L 0 10 Z "/>
+    </svg>  
+      
+    <div *ngIf="quizz.current && quizz.mode=='question'" class="quizz">
+      <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
+      <div class="picture">
+        <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
+      </div>
+      <div class="answers" *ngIf="quizz.mode=='question'">
+        <div class="answer" *ngFor="let answer of quizz.answers" (click)="giveAnswer(answer)" >
+          <div>{{quizz.birds[answer].name}}</div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="wrong" *ngIf="quizz.mode=='answer' && (quizz.givenAnswer != quizz.current)" (click)="nextQuestion()">
-    <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
-    <div class="result">FAUX</div>
-
-    <div class="birds">
-      <figure class="photo">
-        <img [src]="'assets/photos/'+quizz.current+'.jpg'">
-        <figcaption>{{quizz.birds[quizz.current].name}}</figcaption> 
-      </figure>
-      <figure class="photo">
-        <img [src]="'assets/photos/'+quizz.givenAnswer+'.jpg'">
-        <figcaption>{{quizz.birds[quizz.givenAnswer].name}}</figcaption> 
-      </figure>
-    </div>
-    <div class="actions">
-      <div class="next">
-        <svg class="svg-arrow-right" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10"><path  d="M 2 0 L 8 5 L 2 10 "/></svg>
+  
+    <div class="correct" *ngIf="quizz.mode=='answer' && quizz.givenAnswer == quizz.current" (click)="nextQuestion()">
+      <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
+      <div class="result">{{quizz.birds[quizz.current].name}}</div>
+      <div class="bird">
+        <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'">
+        <div class="key2">
+          {{quizz.birds[quizz.current].order}} {{quizz.birds[quizz.current].family}} {{quizz.birds[quizz.current].genus}} {{quizz.birds[quizz.current].species}}
+        </div>          
+      </div>
+      <div class="actions">
+        <div class="next">
+          <svg class="svg-arrow-right" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10"><path  d="M 2 0 L 8 5 L 2 10 "/></svg>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="wrong" *ngIf="quizz.mode=='answer' && (quizz.givenAnswer != quizz.current)" (click)="nextQuestion()">
+      <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
+      <div class="result">FAUX</div>
+  
+      <div class="birds">
+        <figure class="photo">
+          <img [src]="'assets/photos/'+quizz.current+'.jpg'">
+          <figcaption>{{quizz.birds[quizz.current].name}}</figcaption> 
+        </figure>
+        <figure class="photo">
+          <img [src]="'assets/photos/'+quizz.givenAnswer+'.jpg'">
+          <figcaption>{{quizz.birds[quizz.givenAnswer].name}}</figcaption> 
+        </figure>
+      </div>
+      <div class="actions">
+        <div class="next">
+          <svg class="svg-arrow-right" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10"><path  d="M 2 0 L 8 5 L 2 10 "/></svg>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+  
+  
 </div>
