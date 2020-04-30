@@ -366,6 +366,7 @@ export class AppComponent implements OnInit{
         img: BIRDS_DATA[bird].genus + BIRDS_DATA[bird].species.charAt(0).toUpperCase() + BIRDS_DATA[bird].species.slice(1) + '.jpg'
       }
     }
+    this.openFullScreen(); 
 
 
     // for (let bird of BIRDS_DATA){
