@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { shuffle } from './utils/array'; 
 import { Observable, Subject, merge } from 'rxjs';
 import { map, scan } from "rxjs/operators";
 import { BIRDS_DATA } from"../assets/data/birdsData"; 
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // MODELS ///////////////////////////////////////////////////////////////////////////////
@@ -34,6 +35,7 @@ interface BirdCollection {
 
 interface Library{
   birds: BirdCollection;
+  phylo: any; 
   positions?: {[key: string]: {x: number, y: number}}, 
   available: {    
     orders: {[key: string]: Order}, 
@@ -265,29 +267,51 @@ export class AppComponent implements OnInit{
           ///////////////////////////////////////////////////////////////////////////
           // ADD BIRDS TO LIBRARY ///////////////////////////////////////////////////
           case LibraryActionTypes.ADD_BIRDS:
-            libraryCopy.birds = curr.payload;
+            libraryCopy.birds = curr.payload;            
             libraryCopy.positions = []; 
-            let i: number = 0; 
-            let j: number = 0; 
-            for (let key of Object.keys(libraryCopy.birds)){
+            // let i: number = 0; 
+            // let j: number = 0; 
+
+            let birds = libraryCopy.birds; 
+            let phylo: any = {}; 
+
+            // for (let key of Object.keys(libraryCopy.birds)){
+            for (let key of Object.keys(birds)){
+              if(phylo[birds[key].order] == undefined) {phylo[birds[key].order] = {}; }
+              if(phylo[birds[key].order][birds[key].family] == undefined) {phylo[birds[key].order][birds[key].family] = {}; }
+              
               
 
-              let ord = libraryCopy.birds[key].order; 
-              let fam = libraryCopy.birds[key].family; 
-              let gen = libraryCopy.birds[key].genus; 
-              let spe = libraryCopy.birds[key].species; 
-
-              libraryCopy.available.orders[ord]={name: ord}; 
-              libraryCopy.available.families[fam]={name: fam, order: ord}; 
-              libraryCopy.available.genus[gen]={name: gen, family: fam}; 
-              libraryCopy.available.species[spe]={name: spe, genus: gen}; 
-
-              libraryCopy.positions[key] = {x: i, y: j};
-
-              i++; 
-              if(i>20){j++; i=0;}
-              
+              phylo[birds[key].order][birds[key].family][birds[key].genus+birds[key].species]={
+                name: birds[key].name, 
+                genus: birds[key].genus, 
+                species: birds[key].species, 
+                img: birds[key].genus.toLocaleLowerCase() + birds[key].species.charAt(0).toUpperCase() + birds[key].species.slice(1) + '.jpg'
+              }; 
             }
+
+            libraryCopy.phylo = phylo; 
+              
+
+
+                            
+              
+              // let ord = libraryCopy.birds[key].order; 
+              // let fam = libraryCopy.birds[key].family; 
+              // let gen = libraryCopy.birds[key].genus; 
+              // let spe = libraryCopy.birds[key].species; 
+
+              // libraryCopy.available.orders[ord]={name: ord}; 
+              // libraryCopy.available.families[fam]={name: fam, order: ord}; 
+              // libraryCopy.available.genus[gen]={name: gen, family: fam}; 
+              // libraryCopy.available.species[spe]={name: spe, genus: gen}; 
+
+              // libraryCopy.positions[key] = {x: i, y: j};
+
+              // i++; 
+              // if(i>20){j++; i=0;}
+              
+            
             
             // libraryCopy.birds = curr.payload; 
             // libraryCopy.orders = []; 
@@ -314,6 +338,7 @@ export class AppComponent implements OnInit{
       }, 
       {
         birds: {},  
+        phylo: {}, 
         available: {    
           orders: {}, 
           families: {}, 
@@ -366,7 +391,7 @@ export class AppComponent implements OnInit{
         img: BIRDS_DATA[bird].genus + BIRDS_DATA[bird].species.charAt(0).toUpperCase() + BIRDS_DATA[bird].species.slice(1) + '.jpg'
       }
     }
-    this.openFullScreen(); 
+    
 
 
     // for (let bird of BIRDS_DATA){
@@ -488,4 +513,5 @@ export class AppComponent implements OnInit{
     }
     this.fullScreen = false;
   }
+
 }

@@ -19,12 +19,7 @@
       <path fill="none" stroke="black" d="M 2 2 8 8" />
     </svg> -->
 
-    <svg class="library" [attr.viewBox]="viewBox">
-      <!-- <defs>
-          <pattern id="imgpattern" patternUnits="userSpaceOnUse" x="0" y="0" width="1" height="1">
-            <image width="10" height="10" xlink:href="assets/photos/acanthisFlammea.jpg"/>
-          </pattern>
-      </defs> -->
+    <!-- <svg class="library" [attr.viewBox]="viewBox">      
       <image 
         *ngFor="let bird of library.birds | keyvalue" 
         preserveAspectRatio="xMidYMid slice" 
@@ -34,18 +29,29 @@
         height="0.9" 
         [attr.xlink:href]="'assets/miniature/tn_' + library.birds[bird.key].img"
       />
-      
-      <!-- <path fill="url(#imgpattern)" stroke="black" stroke-width="0.01" d="M 1 2 L 5 0 L 10 3 L 5 10 L 0 5 Z" /> -->
-    
-    </svg>
-    <!-- <ng-container *ngFor="let order of library.available.orders | keyvalue">
-      <div class="order">{{order.value.name}}</div>
-      <ng-container *ngFor="let family of library.available.families | keyvalue">
-        <div class="family" *ngIf="family.value.order == order.value.name">
-          {{family.value.name}}
-        </div>
+    </svg> -->
+    <div class="library">
+      <ng-container *ngFor="let order of library.phylo | keyvalue">
+        <div class="order">{{order.key}}</div>
+        <ng-container *ngFor="let family of library.phylo[order.key] | keyvalue">
+          <div class="family">{{family.key}}</div>
+          <ng-container *ngFor="let species of library.phylo[order.key][family.key] | keyvalue">
+            <div class="species">              
+              <div class="photo">
+                <img [src]="'assets/miniature/tn_'+species.value.img" alt="">
+
+              </div>
+              <div class="name">
+                {{species.value.name}} <br>
+                <i>({{species.value.genus}} - {{species.value.species}})</i>
+              </div>
+              
+            </div>
+          </ng-container>
+        </ng-container>
       </ng-container>
-    </ng-container> -->
+    </div>
+    
     <svg class="full-screen" xmlns="http://www.w3.org/2000/svg" fill="red" stroke="black" viewBox="0 0 10 10" (click)="fullScreen?closeFullScreen():openFullScreen()">
       <path  d="M 0 0 L 10 10 "/>
       <path  d="M 0 10 L 10 0 "/>

@@ -11,8 +11,20 @@
 .menu div span{font-size: 40px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); }
 
 // LIBRARY /////////////////////////////////////////////////////////////////////////////////////
-.order{background: grey;}
-.family{padding-left: 15px;}
+.order{background: grey;padding: 10px; }
+.family{padding-left: 15px; padding: 10px;}
+.species{padding-left: 15px; padding: 10px; background: white; border-bottom: solid 1px lightGrey; 
+    position: relative; 
+    display: flex; 
+    flex-direction: row; 
+    height: 100px; 
+}
+
+.species .name{flex: 1; padding: 0 10px 0 10px;  }
+.species .photo{flex-basis: 100px; max-width: 100px; position: relative; overflow: hidden; background: grey;  }
+.species .photo img{position: absolute; top: 50%; left: 50%; max-height: 100%; max-width: 100%; transform: translate(-50%, -50%)}
+
+
 .library{
     height: 100vh; 
     width: 100vw; 
@@ -21,6 +33,7 @@
     top: 0; 
     left: 0;     
     background: lightGrey; 
+    overflow-y: auto;
 }
 
 // MENU ////////////////////////////////////////////////////////////////////////////////////////
