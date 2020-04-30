@@ -14,7 +14,38 @@
 
   <!------------------------------- LIBRARY ----------------------------------->
   <ng-container *ngIf="page=='library'">
-    ESPECES<br/>
+    ESPECES<br/>    
+    <!-- <svg >
+      <path fill="none" stroke="black" d="M 2 2 8 8" />
+    </svg> -->
+
+    <svg class="library" [attr.viewBox]="viewBox">
+      <!-- <defs>
+          <pattern id="imgpattern" patternUnits="userSpaceOnUse" x="0" y="0" width="1" height="1">
+            <image width="10" height="10" xlink:href="assets/photos/acanthisFlammea.jpg"/>
+          </pattern>
+      </defs> -->
+      <image 
+        *ngFor="let bird of library.birds | keyvalue" 
+        preserveAspectRatio="xMidYMid slice" 
+        [attr.x]="library.positions[bird.key].x" 
+        [attr.y]="library.positions[bird.key].y"
+        width="0.9" 
+        height="0.9" 
+        [attr.xlink:href]="'assets/miniature/tn_' + library.birds[bird.key].img"
+      />
+      
+      <!-- <path fill="url(#imgpattern)" stroke="black" stroke-width="0.01" d="M 1 2 L 5 0 L 10 3 L 5 10 L 0 5 Z" /> -->
+    
+    </svg>
+    <!-- <ng-container *ngFor="let order of library.available.orders | keyvalue">
+      <div class="order">{{order.value.name}}</div>
+      <ng-container *ngFor="let family of library.available.families | keyvalue">
+        <div class="family" *ngIf="family.value.order == order.value.name">
+          {{family.value.name}}
+        </div>
+      </ng-container>
+    </ng-container> -->
     <button (click)="page='menu'">Retour au menu</button>    
   </ng-container>
   
