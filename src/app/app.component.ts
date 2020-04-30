@@ -284,7 +284,7 @@ export class AppComponent implements OnInit{
 
               phylo[birds[key].order][birds[key].family][birds[key].genus+birds[key].species]={
                 name: birds[key].name, 
-                genus: birds[key].genus, 
+                genus: birds[key].genus.charAt(0).toUpperCase() + birds[key].genus.slice(1),
                 species: birds[key].species, 
                 img: birds[key].genus.toLocaleLowerCase() + birds[key].species.charAt(0).toUpperCase() + birds[key].species.slice(1) + '.jpg'
               }; 

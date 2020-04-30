@@ -24,6 +24,8 @@
 .species .photo{flex-basis: 100px; max-width: 100px; position: relative; overflow: hidden; background: grey;  }
 .species .photo img{position: absolute; top: 50%; left: 50%; max-height: 100%; max-width: 100%; transform: translate(-50%, -50%)}
 
+.species .latin{font-style: italic; color: grey; }
+
 
 .library{
     height: 100vh; 
