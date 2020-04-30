@@ -14,7 +14,7 @@
 
   <!------------------------------- LIBRARY ----------------------------------->
   <ng-container *ngIf="page=='library'">
-    ESPECES<br/>    
+    <div class="library-header">ESPECES</div>  
     <!-- <svg >
       <path fill="none" stroke="black" d="M 2 2 8 8" />
     </svg> -->
@@ -46,7 +46,17 @@
         </div>
       </ng-container>
     </ng-container> -->
-    <button (click)="page='menu'">Retour au menu</button>    
+    <svg class="full-screen" xmlns="http://www.w3.org/2000/svg" fill="red" stroke="black" viewBox="0 0 10 10" (click)="fullScreen?closeFullScreen():openFullScreen()">
+      <path  d="M 0 0 L 10 10 "/>
+      <path  d="M 0 10 L 10 0 "/>
+      <path  d="M 0 2 L 0 0 L 2 0"/>
+      <path  d="M 8 0 L 10 0 L 10 2"/>
+      <path  d="M 10 8 L 10 10 L 8 10"/>
+      <path  d="M 0 8 L 0 10 L 2 10"/>      
+    </svg>  
+    <svg class="go-to-menu" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10" (click)="page='menu'">
+      <path  d="M 0 3.5 L 5 0.5 L 10 3.5 L 10 10 L 0 10 Z "/>
+    </svg>  
   </ng-container>
   
   <!------------------------------- QUIZZ ----------------------------------->
@@ -64,9 +74,9 @@
     </svg>  
       
     <div *ngIf="quizz.current && quizz.mode=='question'" class="quizz">
-      <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
+      <img class="background" [src]="'assets/photos/'+quizz.birds[quizz.current].img" alt="">
       <div class="picture">
-        <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
+        <img class="photo" [src]="'assets/photos/'+quizz.birds[quizz.current].img" alt="">
       </div>
       <div class="answers" *ngIf="quizz.mode=='question'">
         <div class="answer" *ngFor="let answer of quizz.answers" (click)="giveAnswer(answer)" >
@@ -76,10 +86,11 @@
     </div>
   
     <div class="correct" *ngIf="quizz.mode=='answer' && quizz.givenAnswer == quizz.current" (click)="nextQuestion()">
-      <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
+      <img class="background" [src]="'assets/photos/'+quizz.birds[quizz.current].img+'.jpg'" alt="">
+
       <div class="result">{{quizz.birds[quizz.current].name}}</div>
       <div class="bird">
-        <img class="photo" [src]="'assets/photos/'+quizz.current+'.jpg'">
+        <img class="photo" [src]="'assets/photos/'+quizz.birds[quizz.current].img">
         <div class="key2">
           {{quizz.birds[quizz.current].order}} {{quizz.birds[quizz.current].family}} {{quizz.birds[quizz.current].genus}} {{quizz.birds[quizz.current].species}}
         </div>          
@@ -91,16 +102,16 @@
       </div>
     </div>
     <div class="wrong" *ngIf="quizz.mode=='answer' && (quizz.givenAnswer != quizz.current)" (click)="nextQuestion()">
-      <img class="background" [src]="'assets/photos/'+quizz.current+'.jpg'" alt="">
+      <img class="background" [src]="'assets/photos/'+quizz.birds[quizz.current].img" alt="">
       <div class="result">FAUX</div>
   
       <div class="birds">
         <figure class="photo">
-          <img [src]="'assets/photos/'+quizz.current+'.jpg'">
+          <img [src]="'assets/photos/'+quizz.birds[quizz.current].img">
           <figcaption>{{quizz.birds[quizz.current].name}}</figcaption> 
         </figure>
         <figure class="photo">
-          <img [src]="'assets/photos/'+quizz.givenAnswer+'.jpg'">
+          <img [src]="'assets/photos/'+quizz.birds[quizz.givenAnswer].img">
           <figcaption>{{quizz.birds[quizz.givenAnswer].name}}</figcaption> 
         </figure>
       </div>

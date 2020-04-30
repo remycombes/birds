@@ -163,9 +163,17 @@ export class AppComponent implements OnInit{
         switch(curr.type){
           ///////////////////////////////////////////////////////////////////////////
           // ADD BIRDS //////////////////////////////////////////////////////////////
-          case QuizzActionTypes.ADD_BIRDS:            
+          case QuizzActionTypes.ADD_BIRDS:
+            let birdsCopy = JSON.parse(JSON.stringify(curr.payload)); 
+            console.log(birdsCopy); 
+            for(let key of Object.keys(birdsCopy)){
+              birdsCopy[key].img = ""; 
+              
+              console.log(birdsCopy[key].species); 
+              birdsCopy[key].img = ""+birdsCopy[key].genus.toLocaleLowerCase() + birdsCopy[key].species.charAt(0).toUpperCase() + birdsCopy[key].species.slice(1)+'.jpg'
+            }
             return {...acc, 
-              birds: curr.payload, 
+              birds: birdsCopy, 
               current: null
             };
           ///////////////////////////////////////////////////////////////////////////
@@ -259,8 +267,8 @@ export class AppComponent implements OnInit{
           case LibraryActionTypes.ADD_BIRDS:
             libraryCopy.birds = curr.payload;
             libraryCopy.positions = []; 
-            let i: number = 1; 
-            let j: number = 1; 
+            let i: number = 0; 
+            let j: number = 0; 
             for (let key of Object.keys(libraryCopy.birds)){
               
 
@@ -277,7 +285,7 @@ export class AppComponent implements OnInit{
               libraryCopy.positions[key] = {x: i, y: j};
 
               i++; 
-              if(i>=20){j++; i=1;}
+              if(i>20){j++; i=0;}
               
             }
             
@@ -323,7 +331,7 @@ export class AppComponent implements OnInit{
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   // VIEWBOX ///////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
-  viewBox: string = "0 0 30 30"; 
+  viewBox: string = "0 0 21 21"; 
 
   // DISPLAYED DATA //////////////////////////////////////////////////////////////////////
   rawBirds: BirdCollection = {}; 
@@ -331,7 +339,7 @@ export class AppComponent implements OnInit{
   library: Library; 
 
   // NAVIGATION //////////////////////////////////////////////////////////////////////////
-  page: string = "library"; 
+  page: string = "menu"; 
   fullScreen: boolean = false; 
 
   ////////////////////////////////////////////////////////////////////////////////////////
