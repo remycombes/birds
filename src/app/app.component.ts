@@ -23,14 +23,7 @@ interface Bird{
 }
 
 interface BirdCollection {
-  [key: string]: {
-    order: string, 
-    family: string, 
-    genus: string, 
-    species: string, 
-    name: string, 
-    img: string
-  }
+  [key: string]: Bird
 }
 
 interface Library{
@@ -43,10 +36,7 @@ interface Library{
     genus: {[key: string]: Genus}, 
     species: {[key: string]: Species}
   }; 
-  current: {
-    type: string; // order, damily, genus, species
-    value: string;     
-  };
+  current: string
 }
 
 interface Quizz{
@@ -99,10 +89,8 @@ enum LibraryActionTypes {
 
 class AddBirdsToLibraryAction{ readonly type = LibraryActionTypes.ADD_BIRDS; constructor(public payload: {[key: string]: Bird}){} }
 class SelectBirdInLibraryAction{ readonly type = LibraryActionTypes.SELECT_BIRD; constructor(public payload: string){} }
-class NextBirdAction{ readonly type = LibraryActionTypes.NEXT_BIRD;}
-class PreviousBirdAction{ readonly type = LibraryActionTypes.PREVIOUS_BIRD;}
 
-type LibraryActions = AddBirdsToLibraryAction | SelectBirdInLibraryAction | NextBirdAction | PreviousBirdAction ; 
+type LibraryActions = AddBirdsToLibraryAction | SelectBirdInLibraryAction ; 
 
 
 const SPAN = 7 ; 
@@ -167,11 +155,8 @@ export class AppComponent implements OnInit{
           // ADD BIRDS //////////////////////////////////////////////////////////////
           case QuizzActionTypes.ADD_BIRDS:
             let birdsCopy = JSON.parse(JSON.stringify(curr.payload)); 
-            console.log(birdsCopy); 
             for(let key of Object.keys(birdsCopy)){
               birdsCopy[key].img = ""; 
-              
-              console.log(birdsCopy[key].species); 
               birdsCopy[key].img = ""+birdsCopy[key].genus.toLocaleLowerCase() + birdsCopy[key].species.charAt(0).toUpperCase() + birdsCopy[key].species.slice(1)+'.jpg'
             }
             return {...acc, 
@@ -267,72 +252,29 @@ export class AppComponent implements OnInit{
           ///////////////////////////////////////////////////////////////////////////
           // ADD BIRDS TO LIBRARY ///////////////////////////////////////////////////
           case LibraryActionTypes.ADD_BIRDS:
+            console.log('add birds'); 
             libraryCopy.birds = curr.payload;            
             libraryCopy.positions = []; 
-            // let i: number = 0; 
-            // let j: number = 0; 
-
             let birds = libraryCopy.birds; 
             let phylo: any = {}; 
-
-            // for (let key of Object.keys(libraryCopy.birds)){
             for (let key of Object.keys(birds)){
               if(phylo[birds[key].order] == undefined) {phylo[birds[key].order] = {}; }
               if(phylo[birds[key].order][birds[key].family] == undefined) {phylo[birds[key].order][birds[key].family] = {}; }
-              
-              
-
               phylo[birds[key].order][birds[key].family][birds[key].genus+birds[key].species]={
-                name: birds[key].name, 
-                genus: birds[key].genus.charAt(0).toUpperCase() + birds[key].genus.slice(1),
+                name: birds[key].name,
+                genus: birds[key].genus,
                 species: birds[key].species, 
                 img: birds[key].genus.toLocaleLowerCase() + birds[key].species.charAt(0).toUpperCase() + birds[key].species.slice(1) + '.jpg'
               }; 
             }
-
-            libraryCopy.phylo = phylo; 
-              
-
-
-                            
-              
-              // let ord = libraryCopy.birds[key].order; 
-              // let fam = libraryCopy.birds[key].family; 
-              // let gen = libraryCopy.birds[key].genus; 
-              // let spe = libraryCopy.birds[key].species; 
-
-              // libraryCopy.available.orders[ord]={name: ord}; 
-              // libraryCopy.available.families[fam]={name: fam, order: ord}; 
-              // libraryCopy.available.genus[gen]={name: gen, family: fam}; 
-              // libraryCopy.available.species[spe]={name: spe, genus: gen}; 
-
-              // libraryCopy.positions[key] = {x: i, y: j};
-
-              // i++; 
-              // if(i>20){j++; i=0;}
-              
-            
-            
-            // libraryCopy.birds = curr.payload; 
-            // libraryCopy.orders = []; 
-            // libraryCopy.families = []; 
-            // libraryCopy.genus = []; 
-            // libraryCopy.species = []; 
-            // for (let key of Object.keys(curr.payload)){
-            //   if(libraryCopy.orders.indexOf(curr.payload[key].order) == -1) libraryCopy.orders.push(curr.payload[key].order); 
-            //   if(libraryCopy.families.indexOf(curr.payload[key].family) == -1) libraryCopy.families.push(curr.payload[key].family); 
-            //   if(libraryCopy.genus.indexOf(curr.payload[key].genus) == -1) libraryCopy.genus.push(curr.payload[key].genus); 
-            //   if(libraryCopy.species.indexOf(curr.payload[key].species) == -1) libraryCopy.species.push(curr.payload[key].species);               
-            // }
-            // libraryCopy.orders.sort(); 
-            // libraryCopy.families.sort(); 
-            // libraryCopy.genus.sort(); 
-            // libraryCopy.species.sort(); 
-            // console.log(libraryCopy); 
+            libraryCopy.phylo = phylo;
+            console.log(libraryCopy); 
             return libraryCopy; 
-          case LibraryActionTypes.SELECT_BIRD: 
+          case LibraryActionTypes.SELECT_BIRD:
+            console.log('select bird'); 
             libraryCopy.current = curr.payload; 
-            return libraryCopy;
+            console.log({...acc, current: curr.payload}); 
+            return {...acc, current: curr.payload};
           default: return ; 
         }
       }, 
@@ -345,10 +287,7 @@ export class AppComponent implements OnInit{
           genus: {}, 
           species: {}
         }, 
-        current: {
-          type: null, 
-          value: null
-        }
+        current: ""
       }
       )
     );   
@@ -471,8 +410,12 @@ export class AppComponent implements OnInit{
     this.setMode$.next(mode); 
   }
 
-  selectBirdInLibrary(key: string){
-    this.selectBirdInLibrary$.next(key); 
+  deselectBird(){
+    this.selectBirdInLibrary$.next(''); 
+  }
+
+  selectBirdInLibrary(genus: string, species: string){
+    this.selectBirdInLibrary$.next(genus + '_' + species); 
   }  
 
   // FULL SCREEN /////////////////////////////////////////////////////////////////////////////////////////////////////////
