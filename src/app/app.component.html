@@ -1,4 +1,8 @@
 <div class="container" id="container">
+  <!-- pre-loader -->
+  <div class="pre-loader">
+    <img *ngFor="let bird of library.birds | keyvalue" [src]="'assets/miniature/tn_'+library.birds[bird.key].img" alt="">
+  </div>
 
   <!------------------------------- BUTTONS -------------------------------->  
   <div class="full-screen-button" (click)="fullScreen?closeFullScreen():openFullScreen()">
@@ -20,7 +24,7 @@
   <!------------------------------------------------------------------------->
   <!-------------------------------- MENU ----------------------------------->
   <!------------------------------------------------------------------------->
-  <div class="menu" *ngIf="page=='menu'">    
+  <div class="menu" [ngClass]="{'ouvert': page=='menu'}">    
     <img class="background" [src]="'assets/photos/acanthisFlammea.jpg'">
     <div class="title">OISEAUX</div>
     <div class="button" (click)="page='quizz'">Quizz</div>
@@ -30,7 +34,7 @@
   <!-------------------------------------------------------------------------->
   <!------------------------------- LIBRARY ---------------------------------->
   <!-------------------------------------------------------------------------->
-  <div class="library" *ngIf="page=='library'">
+  <div class="library" [ngStyle]="{'height':page=='library'?'100%':'0'}">
     <div class="pop-up-area" *ngIf="library.current!=''" (click)="deselectBird()">
       <div class="pop-up">
         <img class="pop-up-photo" [src]="'assets/photos/'+library.birds[library.current].img" alt="">
@@ -64,9 +68,9 @@
   <!------------------------------------------------------------------------->
   <!------------------------------- QUIZZ ----------------------------------->
   <!------------------------------------------------------------------------->
-  <div class="quizz" *ngIf="page=='quizz'">
+  <div class="quizz" [ngStyle]="{'height':page=='quizz'?'100%':'0'}">
     <div class="pre-loader">
-      <img *ngFor="let bird of quizz.inProgress | keyvalue" src="'assets/photos/'+quizz.birds[bird.key].img" alt="">
+      <img *ngFor="let bird of quizz.inProgress | keyvalue" [src]="'assets/photos/'+quizz.birds[bird.value].img" alt="">
     </div>
     <div class="quizz-container" *ngIf="quizz.current">
       <div class="next" *ngIf="quizz.mode=='answer'" (click)="nextQuestion()"></div>
