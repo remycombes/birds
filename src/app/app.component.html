@@ -1,7 +1,7 @@
 <div class="container" id="container">
-  
+
+  <!------------------------------- BUTTONS -------------------------------->  
   <div class="full-screen-button" (click)="fullScreen?closeFullScreen():openFullScreen()">
-    <!-- {{fullScreen?'Quitter le mode plein écran': 'Passer en mode plein écran'}} -->
     <svg  xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10">
       <path  d="M 1 1 L 9 9 "/>
       <path  d="M 1 9 L 9 1 "/>
@@ -17,24 +17,26 @@
     </svg>  
   </div>  
 
-  <!------------------------------- MENU ----------------------------------->
+  <!------------------------------------------------------------------------->
+  <!-------------------------------- MENU ----------------------------------->
+  <!------------------------------------------------------------------------->
   <div class="menu" *ngIf="page=='menu'">    
     <img class="background" [src]="'assets/photos/acanthisFlammea.jpg'">
     <div class="title">OISEAUX</div>
-    <!-- <div class="button" (click)="page='quizz'">Quizz</div> -->
+    <div class="button" (click)="page='quizz'">Quizz</div>
     <div class="button" (click)="page='library'">Espèces</div>
   </div>
 
-
-  <!------------------------------- LIBRARY ----------------------------------->
+  <!-------------------------------------------------------------------------->
+  <!------------------------------- LIBRARY ---------------------------------->
+  <!-------------------------------------------------------------------------->
   <div class="library" *ngIf="page=='library'">
     <div class="pop-up-area" *ngIf="library.current!=''" (click)="deselectBird()">
       <div class="pop-up">
         <img class="pop-up-photo" [src]="'assets/photos/'+library.birds[library.current].img" alt="">
         <div class="pop-up-name">{{library.birds[library.current].name}}</div>
         <span class="pop-up-latin">{{library.birds[library.current].genus}} {{library.birds[library.current].species}}</span>
-      </div>
-      
+      </div>      
     </div>
     
     <div class="header">Espèces</div>  
@@ -46,7 +48,6 @@
           <div class="family-species">
             <ng-container *ngFor="let species of library.phylo[order.key][family.key] | keyvalue">
                 <div class="species" (click)="selectBirdInLibrary(species.value.genus, species.value.species)">
-                  <!-- <div class="background"><img [src]="'assets/miniature/tn_'+species.value.img" alt=""></div> -->
                   <div class="photo"><img [src]="'assets/miniature/tn_'+species.value.img" alt=""></div>
                   <div class="name">
                     {{species.value.name}} <br>
@@ -60,70 +61,31 @@
     </div>
   </div>
   
+  <!------------------------------------------------------------------------->
   <!------------------------------- QUIZZ ----------------------------------->
-  <ng-container *ngIf="page=='quizz'">
-    <svg class="full-screen" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" viewBox="0 0 10 10" (click)="fullScreen?closeFullScreen():openFullScreen()">
-      <path  d="M 0 0 L 10 10 "/>
-      <path  d="M 0 10 L 10 0 "/>
-      <path  d="M 0 2 L 0 0 L 2 0"/>
-      <path  d="M 8 0 L 10 0 L 10 2"/>
-      <path  d="M 10 8 L 10 10 L 8 10"/>
-      <path  d="M 0 8 L 0 10 L 2 10"/>      
-    </svg>  
-    <svg class="go-to-menu" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" viewBox="0 0 10 10" (click)="page='menu'">
-      <path  d="M 0 3.5 L 5 0.5 L 10 3.5 L 10 10 L 0 10 Z "/>
-    </svg>  
-      
-    <div *ngIf="quizz.current && quizz.mode=='question'" class="quizz">
-      <img class="background" [src]="'assets/photos/'+quizz.birds[quizz.current].img" alt="">
-      <div class="picture">
-        <img class="photo" [src]="'assets/photos/'+quizz.birds[quizz.current].img" alt="">
-      </div>
-      <div class="answers" *ngIf="quizz.mode=='question'">
-        <div class="answer" *ngFor="let answer of quizz.answers" (click)="giveAnswer(answer)" >
-          <div>{{quizz.birds[answer].name}}</div>
-        </div>
-      </div>
+  <!------------------------------------------------------------------------->
+  <div class="quizz" *ngIf="page=='quizz'">
+    <div class="pre-loader">
+      <img *ngFor="let bird of quizz.inProgress | keyvalue" src="'assets/photos/'+quizz.birds[bird.key].img" alt="">
     </div>
-  
-    <div class="correct" *ngIf="quizz.mode=='answer' && quizz.givenAnswer == quizz.current" (click)="nextQuestion()">
-      <img class="background" [src]="'assets/photos/'+quizz.birds[quizz.current].img+'.jpg'" alt="">
-
-      <div class="result">{{quizz.birds[quizz.current].name}}</div>
+    <div class="quizz-container" *ngIf="quizz.current">
+      <div class="next" *ngIf="quizz.mode=='answer'" (click)="nextQuestion()"></div>
+      <div class="loading">Chargement...</div>      
+      <div class="error" *ngIf="quizz.mode=='answer' && quizz.givenAnswer != quizz.current"></div>
+      <div class="correct-background" *ngIf="quizz.mode=='answer' && quizz.givenAnswer == quizz.current"></div>
+      <div class="wrong-background" *ngIf="quizz.mode=='answer' && quizz.givenAnswer != quizz.current"></div>
+      <img class="background" [src]="'assets/photos/'+quizz.birds[quizz.current].img" alt="">
       <div class="bird">
-        <img class="photo" [src]="'assets/photos/'+quizz.birds[quizz.current].img">
-        <div class="key2">
-          {{quizz.birds[quizz.current].order}} {{quizz.birds[quizz.current].family}} {{quizz.birds[quizz.current].genus}} {{quizz.birds[quizz.current].species}}
-        </div>          
+        <img [src]="'assets/photos/'+quizz.birds[quizz.current].img">
       </div>
-      <div class="actions">
-        <div class="next">
-          <svg class="svg-arrow-right" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10"><path  d="M 2 0 L 8 5 L 2 10 "/></svg>
-        </div>
-      </div>
-    </div>
-    <div class="wrong" *ngIf="quizz.mode=='answer' && (quizz.givenAnswer != quizz.current)" (click)="nextQuestion()">
-      <img class="background" [src]="'assets/photos/'+quizz.birds[quizz.current].img" alt="">
-      <div class="result">FAUX</div>
-  
-      <div class="birds">
-        <figure class="photo">
-          <img [src]="'assets/photos/'+quizz.birds[quizz.current].img">
-          <figcaption>{{quizz.birds[quizz.current].name}}</figcaption> 
-        </figure>
-        <figure class="photo">
-          <img [src]="'assets/photos/'+quizz.birds[quizz.givenAnswer].img">
-          <figcaption>{{quizz.birds[quizz.givenAnswer].name}}</figcaption> 
-        </figure>
-      </div>
-      <div class="actions">
-        <div class="next">
-          <svg class="svg-arrow-right" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10"><path  d="M 2 0 L 8 5 L 2 10 "/></svg>
-        </div>
+      <div class="footer">
+        <ng-container *ngIf="quizz.mode=='question'">
+          <div class="answer" *ngFor="let answer of quizz.answers" (click)="giveAnswer(answer)" >
+            <div>{{quizz.birds[answer].name}}</div>
+          </div>
+        </ng-container>
       </div>
     </div>
-
-  </ng-container>
-  
+  </div>
   
 </div>

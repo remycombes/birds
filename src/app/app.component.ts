@@ -457,4 +457,10 @@ export class AppComponent implements OnInit{
     this.fullScreen = false;
   }
 
+  getRandomSuccessMessage(): string{
+    let messages = ['BRAVO !', 'EXCEPTIONNEL !', 'CORRECT !', 'JUDICIEUX !', 'PERTINENT !', 'MONUMENTAL !', 'VRAI !', 'CONGRATULATIONS !', 'VOUS ETES UN GENIE !', 'BRAVO EINSTEIN !']; 
+    shuffle(messages); 
+    return messages[0]; 
+  }
+
 }
