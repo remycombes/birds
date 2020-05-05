@@ -7,7 +7,7 @@ import { Species } from './Species';
 export interface Library{
     birds: BirdCollection;
     phylo: any; 
-    available: {    
+    available: {     
       orders: {[key: string]: Order}, 
       families: {[key: string]: Family}, 
       genus: {[key: string]: Genus},  
