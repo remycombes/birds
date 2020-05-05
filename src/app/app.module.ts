@@ -8,11 +8,13 @@ import { BirdsModule } from './birds/birds.module';
 import { HomeComponent } from './home/home.component';
 import { CapitalFirstPipe } from './shared/pipe/capital-first.pipe';
 import { SharedModule } from './shared/shared.module';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
     AppComponent, 
-    HomeComponent
+    HomeComponent, 
+    NavComponent
   ],
   imports: [
     BrowserModule,

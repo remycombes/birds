@@ -21,7 +21,12 @@
     <!------------------------------------------------------------------------->  
     <!------------------------------- BUTTONS --------------------------------->  
     <!------------------------------------------------------------------------->
-    <div class="full-screen-button" (click)="fullScreen?closeFullScreen():openFullScreen()">
+    <div class="hamburger" (click)="navigationExtended = true">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10">
+        <path  d="M 0 3.5 L 5 0.5 L 10 3.5 L 10 10 L 0 10 Z "/>
+      </svg>
+    </div>
+    <!-- <div class="full-screen-button" (click)="fullScreen?closeFullScreen():openFullScreen()">
       <svg  xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10">
         <path  d="M 1 1 L 9 9 "/>
         <path  d="M 1 9 L 9 1 "/>
@@ -35,7 +40,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10">
         <path  d="M 0 3.5 L 5 0.5 L 10 3.5 L 10 10 L 0 10 Z "/>
       </svg>  
-    </div>  
+    </div>   -->
   
     <!------------------------------------------------------------------------->
     <!-------------------------------- MENU ----------------------------------->
@@ -45,6 +50,19 @@
       <div class="title">OISEAUX</div>
       <div class="button" (click)="page='quizz'">Quizz</div>
       <div class="button" (click)="page='library'">Espèces</div>
+    </div>
+
+    <!------------------------------------------------------------------------->
+    <!----------------------------- NAVIGATION -------------------------------->
+    <!------------------------------------------------------------------------->
+    <div *ngIf="navigationExtended" class="navigation-background" (click)="navigationExtended=false;"></div>
+    <div class="navigation" [ngClass]="{extended: navigationExtended}">
+      <app-nav 
+        (onChangePage)="page=$event; navigationExtended=false"
+        (onFullScreen)="fullScreen==true?closeFullScreen():openFullScreen(); navigationExtended=false; "
+        [isFullScreen]="fullScreen"
+        [currentPage]="page"
+      ></app-nav>
     </div>
   
     <!-------------------------------------------------------------------------->
