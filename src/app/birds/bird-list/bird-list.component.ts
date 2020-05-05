@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subject, Observable, merge } from 'rxjs';
 import { BirdCollection } from 'src/app/model/BirdCollection';
-import { Library } from 'src/app/model/library';
+import { Library } from 'src/app/model/Library';
 import { scan, map } from 'rxjs/operators';
 import { Bird } from 'src/app/model/Bird';
 import { FormControl } from '@angular/forms';

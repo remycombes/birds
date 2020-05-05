@@ -5,7 +5,7 @@ import { map, scan } from "rxjs/operators";
 import { BIRDS_DATA } from 'src/assets/data/birdsData';
 import { Quizz } from './model/Quizz';
 import { BirdCollection } from './model/BirdCollection';
-import { Library } from './model/library';
+import { Library } from './model/Library';
 import { Bird } from './model/Bird';
 
 
