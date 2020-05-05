@@ -10,7 +10,7 @@ export interface Library{
     available: {    
       orders: {[key: string]: Order}, 
       families: {[key: string]: Family}, 
-      genus: {[key: string]: Genus}, 
+      genus: {[key: string]: Genus},  
       species: {[key: string]: Species}
     }; 
     current: string, 
