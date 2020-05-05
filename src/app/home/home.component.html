@@ -1,0 +1,65 @@
+<!-- <ng-container>
+  <div class="page-title" *ngIf="page=='menu'">
+    <div class="centered-title">MENU</div>
+  </div>
+  <div class="page-title" *ngIf="page=='quizz'">
+    <div class="centered-title">Quizz</div>
+  </div>
+  <div class="page-title" *ngIf="page=='library'">
+    <div class="centered-title">Espèces</div>
+  </div>
+</ng-container> -->
+
+
+
+<div class="container" id="container" 
+  [ngClass]="{
+    'position-menu': page=='menu', 
+    'position-quizz': page=='quizz', 
+    'position-library': page=='library'
+  }">
+    <!------------------------------------------------------------------------->  
+    <!------------------------------- BUTTONS --------------------------------->  
+    <!------------------------------------------------------------------------->
+    <div class="full-screen-button" (click)="fullScreen?closeFullScreen():openFullScreen()">
+      <svg  xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10">
+        <path  d="M 1 1 L 9 9 "/>
+        <path  d="M 1 9 L 9 1 "/>
+        <path  d="M 1 3 L 1 1 L 3 1"/>
+        <path  d="M 7 1 L 9 1 L 9 3"/>
+        <path  d="M 9 7 L 9 9 L 7 9"/>
+        <path  d="M 1 7 L 1 9 L 3 9"/>
+      </svg>
+    </div>
+    <div *ngIf="page!='menu'" class="home-button" (click)="page='menu'">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" viewBox="0 0 10 10">
+        <path  d="M 0 3.5 L 5 0.5 L 10 3.5 L 10 10 L 0 10 Z "/>
+      </svg>  
+    </div>  
+  
+    <!------------------------------------------------------------------------->
+    <!-------------------------------- MENU ----------------------------------->
+    <!------------------------------------------------------------------------->
+    <div class="menu">    
+      <img class="background" [src]="'assets/photos/acanthisFlammea.jpg'">
+      <div class="title">OISEAUX</div>
+      <div class="button" (click)="page='quizz'">Quizz</div>
+      <div class="button" (click)="page='library'">Espèces</div>
+    </div>
+  
+    <!-------------------------------------------------------------------------->
+    <!------------------------------- LIBRARY ---------------------------------->
+    <!-------------------------------------------------------------------------->
+    <div class="library">
+      <app-bird-list [birds]="rawBirds"></app-bird-list>
+    </div>
+    
+    <!------------------------------------------------------------------------->
+    <!------------------------------- QUIZZ ----------------------------------->
+    <!------------------------------------------------------------------------->
+    <div class="quizz">
+      <app-bird-quizz [birds]="rawBirds"></app-bird-quizz>
+    </div>
+    
+  </div>
+  

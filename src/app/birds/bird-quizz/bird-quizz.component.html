@@ -1,0 +1,25 @@
+<!------------------------------------------------------------------------->
+<!------------------------------- QUIZZ ----------------------------------->
+<!------------------------------------------------------------------------->
+
+<div class="pre-loader">
+    <img *ngFor="let bird of quizz.inProgress | keyvalue" [src]="'assets/photos/'+quizz.birds[bird.value].img" alt="">
+</div>
+<div class="quizz-container" *ngIf="quizz.current">    
+    <div class="next" *ngIf="quizz.mode=='answer'" (click)="nextQuestion()"></div>
+    <div class="loading">Chargement...</div>      
+    <div class="error" *ngIf="quizz.mode=='answer' && quizz.givenAnswer != quizz.current"></div>
+    <div class="correct-background" *ngIf="quizz.mode=='answer' && quizz.givenAnswer == quizz.current"></div>
+    <div class="wrong-background" *ngIf="quizz.mode=='answer' && quizz.givenAnswer != quizz.current"></div>
+    <img class="background" [src]="'assets/photos/'+quizz.birds[quizz.current].img" alt="">
+    <div class="bird">
+    <img [src]="'assets/photos/'+quizz.birds[quizz.current].img">
+    </div>
+    <div class="footer">
+    <ng-container *ngIf="quizz.mode=='question'">
+        <div class="answer" *ngFor="let answer of quizz.answers" (click)="giveAnswer(answer)" >
+        <div>{{quizz.birds[answer].name | capitalFirst}}</div>
+        </div>
+    </ng-container>
+    </div>
+</div>

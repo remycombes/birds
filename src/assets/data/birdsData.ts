@@ -73,8 +73,7 @@ export const BIRDS_DATA = {
   "puffinus_puffinus": {"name": "puffin des anglais", "order": "procellariiformes", "family": "procellariidae", "genus": "puffinus", "species": "puffinus"},
   "puffinus_mauretanicus": {"name": "puffin des baléares", "order": "procellariiformes", "family": "procellariidae", "genus": "puffinus", "species": "mauretanicus"},
   "calonectris_diomedea": {"name": "puffin cendré", "order": "procellariiformes", "family": "procellariidae", "genus": "calonectris", "species": "diomedea"},
-  "puffinus_griseus": {"name": "puffin fuligineux", "order": "procellariiformes", "family": "procellariidae", "genus": "puffinus", "species": "griseus"},
-  "puffinus_baroli": {"name": "puffin de macaronésie", "order": "procellariiformes", "family": "procellariidae", "genus": "puffinus", "species": "baroli"},
+  "puffinus_griseus": {"name": "puffin fuligineux", "order": "procellariiformes", "family": "procellariidae", "genus": "puffinus", "species": "griseus"},  
   "puffinus_gravis": {"name": "puffin majeur", "order": "procellariiformes", "family": "procellariidae", "genus": "puffinus", "species": "gravis"},
   "puffinus_yelkouan": {"name": "puffin yelkouan", "order": "procellariiformes", "family": "procellariidae", "genus": "puffinus", "species": "yelkouan"},
   "oceanodroma_castro": {"name": "océanite de castro", "order": "procellariiformes", "family": "hydrobatidae", "genus": "oceanodroma", "species": "castro"},
@@ -100,8 +99,7 @@ export const BIRDS_DATA = {
   "egretta_garzetta": {"name": "aigrette garzette", "order": "pelecaniformes", "family": "ardeidae", "genus": "egretta", "species": "garzetta"},
   "ardeola_ralloides": {"name": "crabier chevelu", "order": "pelecaniformes", "family": "ardeidae", "genus": "ardeola", "species": "ralloides"},
   "ardea_alba": {"name": "grande aigrette", "order": "pelecaniformes", "family": "ardeidae", "genus": "ardea", "species": "alba"},
-  "nycticorax_nycticorax": {"name": "bihoreau gris", "order": "pelecaniformes", "family": "ardeidae", "genus": "nycticorax", "species": "nycticorax"},
-  "ixobrychus_minutus": {"name": "blongios nain", "order": "pelecaniformes", "family": "ardeidae", "genus": "ixobrychus", "species": "minutus"},
+  "nycticorax_nycticorax": {"name": "bihoreau gris", "order": "pelecaniformes", "family": "ardeidae", "genus": "nycticorax", "species": "nycticorax"},  
   "botaurus_stellaris": {"name": "butor étoilé", "order": "pelecaniformes", "family": "ardeidae", "genus": "botaurus", "species": "stellaris"},
   "ardea_herodias": {"name": "grand héron", "order": "pelecaniformes", "family": "ardeidae", "genus": "ardea", "species": "herodias"},
   "ardea_cinerea": {"name": "héron cendré", "order": "pelecaniformes", "family": "ardeidae", "genus": "ardea", "species": "cinerea"},
@@ -131,8 +129,7 @@ export const BIRDS_DATA = {
   "circus_aeruginosus": {"name": "busard des roseaux", "order": "accipitriformes", "family": "accipitridae", "genus": "circus", "species": "aeruginosus"},
   "circus_cyaneus": {"name": "busard saint-martin", "order": "accipitriformes", "family": "accipitridae", "genus": "circus", "species": "cyaneus"},
   "buteo_rufinus": {"name": "buse féroce", "order": "accipitriformes", "family": "accipitridae", "genus": "buteo", "species": "rufinus"},
-  "buteo_lagopus": {"name": "buse pattue", "order": "accipitriformes", "family": "accipitridae", "genus": "buteo", "species": "lagopus"},
-  "buteo_buteo vulpinus": {"name": "buse de russie ou buse des steppes", "order": "accipitriformes", "family": "accipitridae", "genus": "buteo", "species": "buteo vulpinus"},
+  "buteo_lagopus": {"name": "buse pattue", "order": "accipitriformes", "family": "accipitridae", "genus": "buteo", "species": "lagopus"},  
   "buteo_buteo": {"name": "buse variable", "order": "accipitriformes", "family": "accipitridae", "genus": "buteo", "species": "buteo"},
   "circaetus_gallicus": {"name": "circaète jean-le-blanc", "order": "accipitriformes", "family": "accipitridae", "genus": "circaetus", "species": "gallicus"},
   "elanus_caeruleus": {"name": "Élanion blac", "order": "accipitriformes", "family": "accipitridae", "genus": "elanus", "species": "caeruleus"},
@@ -328,8 +325,7 @@ export const BIRDS_DATA = {
   "galerida_cristata": {"name": "cochevis huppé", "order": "passeriformes", "family": "alaudidae", "genus": "galerida", "species": "cristata"},
   "chersophilus_duponti": {"name": "sirli ricoti", "order": "passeriformes", "family": "alaudidae", "genus": "chersophilus", "species": "duponti"},
   "delichon_urbicum": {"name": "hirondelle de fenêtre", "order": "passeriformes", "family": "hirundinidae", "genus": "delichon", "species": "urbicum"},
-  "riparia_riparia": {"name": "hirondelle de rivage", "order": "passeriformes", "family": "hirundinidae", "genus": "riparia", "species": "riparia"},
-  "hirundo_rupestris": {"name": "hirondelle de rochers", "order": "passeriformes", "family": "hirundinidae", "genus": "hirundo", "species": "rupestris"},
+  "riparia_riparia": {"name": "hirondelle de rivage", "order": "passeriformes", "family": "hirundinidae", "genus": "riparia", "species": "riparia"},  
   "hirundo_daurica": {"name": "hirondelle rousseline", "order": "passeriformes", "family": "hirundinidae", "genus": "hirundo", "species": "daurica"},
   "hirundo_rustica": {"name": "hirondelle rustique ou hirondelle de cheminée", "order": "passeriformes", "family": "hirundinidae", "genus": "hirundo", "species": "rustica"},
   "cettia_cetti": {"name": "bouscarle de cetti", "order": "passeriformes", "family": "cettiidae", "genus": "cettia", "species": "cetti"},
@@ -342,8 +338,7 @@ export const BIRDS_DATA = {
   "phylloscopus_sibilatrix": {"name": "pouillot siffleur", "order": "passeriformes", "family": "phylloscopidae", "genus": "phylloscopus", "species": "sibilatrix"},
   "phylloscopus_collybita": {"name": "pouillot véloce", "order": "passeriformes", "family": "phylloscopidae", "genus": "phylloscopus", "species": "collybita"},
   "phylloscopus_trochiloides": {"name": "pouillot verdâtre", "order": "passeriformes", "family": "phylloscopidae", "genus": "phylloscopus", "species": "trochiloides"},
-  "hippolais_icterina": {"name": "hypolaïs ictérine", "order": "passeriformes", "family": "acrocephalidae", "genus": "hippolais", "species": "icterina"},
-  "hippolais_pallida": {"name": "hypolaïs pâle", "order": "passeriformes", "family": "acrocephalidae", "genus": "hippolais", "species": "pallida"},
+  "hippolais_icterina": {"name": "hypolaïs ictérine", "order": "passeriformes", "family": "acrocephalidae", "genus": "hippolais", "species": "icterina"},  
   "hippolais_polyglotta": {"name": "hypolaïs polyglotte", "order": "passeriformes", "family": "acrocephalidae", "genus": "hippolais", "species": "polyglotta"},
   "acrocephalus_melanopogon": {"name": "lusciniole à moustaches", "order": "passeriformes", "family": "acrocephalidae", "genus": "acrocephalus", "species": "melanopogon"},
   "acrocephalus_paludicola": {"name": "phragmite aquatique", "order": "passeriformes", "family": "acrocephalidae", "genus": "acrocephalus", "species": "paludicola"},
@@ -410,22 +405,18 @@ export const BIRDS_DATA = {
   "oenanthe_hispanica": {"name": "traquet oreillard", "order": "passeriformes", "family": "muscicapidae", "genus": "oenanthe", "species": "hispanica"},
   "oenanthe_pleschanka": {"name": "traquet pie", "order": "passeriformes", "family": "muscicapidae", "genus": "oenanthe", "species": "pleschanka"},
   "oenanthe_leucura": {"name": "traquet rieur", "order": "passeriformes", "family": "muscicapidae", "genus": "oenanthe", "species": "leucura"},
-  "cinclus_cinclus": {"name": "cincle plongeur", "order": "passeriformes", "family": "cinclidae", "genus": "cinclus", "species": "cinclus"},
-  "passer_domesticus italiae": {"name": "moineau cisalpin", "order": "passeriformes", "family": "passeridae", "genus": "passer", "species": "domesticus italiae"},
+  "cinclus_cinclus": {"name": "cincle plongeur", "order": "passeriformes", "family": "cinclidae", "genus": "cinclus", "species": "cinclus"},  
   "passer_domesticus": {"name": "moineau domestique", "order": "passeriformes", "family": "passeridae", "genus": "passer", "species": "domesticus"},
   "passer_hispaniolensis": {"name": "moineau espagnol", "order": "passeriformes", "family": "passeridae", "genus": "passer", "species": "hispaniolensis"},
   "passer_montanus": {"name": "moineau friquet", "order": "passeriformes", "family": "passeridae", "genus": "passer", "species": "montanus"},
   "petronia_petronia": {"name": "moineau soulcie", "order": "passeriformes", "family": "passeridae", "genus": "petronia", "species": "petronia"},
   "montifringilla_nivalis": {"name": "niverolle alpine", "order": "passeriformes", "family": "passeridae", "genus": "montifringilla", "species": "nivalis"},
   "prunella_collaris": {"name": "accenteur alpin", "order": "passeriformes", "family": "prunellidae", "genus": "prunella", "species": "collaris"},
-  "prunella_atrogularis": {"name": "accenteur à gorge noire", "order": "passeriformes", "family": "prunellidae", "genus": "prunella", "species": "atrogularis"},
-  "motacilla_flava feldegg": {"name": "bergeronnette des balkans", "order": "passeriformes", "family": "motacillidae", "genus": "motacilla", "species": "flava feldegg"},
-  "motacilla_citreola": {"name": "bergeronnette citrine", "order": "passeriformes", "family": "motacillidae", "genus": "motacilla", "species": "citreola"},
-  "motacilla_flava flavissima": {"name": "bergeronnette flavéole", "order": "passeriformes", "family": "motacillidae", "genus": "motacilla", "species": "flava flavissima"},
+  "prunella_atrogularis": {"name": "accenteur à gorge noire", "order": "passeriformes", "family": "prunellidae", "genus": "prunella", "species": "atrogularis"},  
+  "motacilla_citreola": {"name": "bergeronnette citrine", "order": "passeriformes", "family": "motacillidae", "genus": "motacilla", "species": "citreola"},  
   "motacilla_alba": {"name": "bergeronnette grise", "order": "passeriformes", "family": "motacillidae", "genus": "motacilla", "species": "alba"},
   "motacilla_flava": {"name": "bergeronnette printanière", "order": "passeriformes", "family": "motacillidae", "genus": "motacilla", "species": "flava"},
-  "motacilla_cinerea": {"name": "bergeronnette des ruisseaux", "order": "passeriformes", "family": "motacillidae", "genus": "motacilla", "species": "cinerea"},
-  "motacilla_alba yarrellii": {"name": "bergeronnette de yarrell", "order": "passeriformes", "family": "motacillidae", "genus": "motacilla", "species": "alba yarrellii"},
+  "motacilla_cinerea": {"name": "bergeronnette des ruisseaux", "order": "passeriformes", "family": "motacillidae", "genus": "motacilla", "species": "cinerea"},  
   "anthus_cervinus": {"name": "pipit à gorge rousse", "order": "passeriformes", "family": "motacillidae", "genus": "anthus", "species": "cervinus"},
   "anthus_richardi": {"name": "pipit de richard", "order": "passeriformes", "family": "motacillidae", "genus": "anthus", "species": "richardi"},
   "anthus_trivialis": {"name": "pipit des arbres", "order": "passeriformes", "family": "motacillidae", "genus": "anthus", "species": "trivialis"},
@@ -464,80 +455,18 @@ export const BIRDS_DATA = {
   "calcarius_lapponicus": {"name": "bruant lapon", "order": "passeriformes", "family": "calcariidae", "genus": "calcarius", "species": "lapponicus"}
 }; 
 
-// export const BIRDS_DATA = {
-//     "callipepla_californica": { 
-//         "order": "galliformes", 
-//         "family": "odontophoridae", 
-//         "genus": "calliplea", 
-//         "species": "californica", 
-//         "name": "colin de californie", 
-//         "img": "callipeplaCalifornica.jpg"
-//      }, 
-//     "colinus_virginianus": { 
-//         "order": "galliformes", 
-//         "family": "odontophoridae", 
-//         "genus": "colinus", 
-//         "species": "virginianus", 
-//         "name": "colin de virginie", 
-//         "img": "colinusVirginianus.jpg"
-//      }, 
-//     "coturnix_coturnix": { 
-//         "order": "galliformes", 
-//         "family": "phasianidae", 
-//         "genus": "coturnix", 
-//         "species": "coturnix", 
-//         "name": "caille des blés", 
-//         "img": "coturnixCoturnix.jpg"
-//       }, 
-//     "histrionicus_histrionicus": { 
-//         "order": "anseriformes", 
-//         "family": "anatidae", 
-//         "genus": "histrionicus", 
-//         "species": "histrionicus", 
-//         "name": "arlequin plongeur", 
-//         "img": "histrionicusHistrionicus.jpg"
-//       }, 
-//     "branta_canadensis": { 
-//         "order": "anseriformes", 
-//         "family": "anatidae", 
-//         "genus": "branta", 
-//         "species": "canadensis", 
-//         "name": "bernache du canada", 
-//         "img": "brantaCanadensis.jpg"
-//       }, 
-//     "brantabernicla": { 
-//         "order": "anseriformes", 
-//         "family": "anatidae", 
-//         "genus": "branta", 
-//         "species": "bernicla", 
-//         "name": "bernache cravant", 
-//         "img": "brantaBernicla.jpg"
-//       }, 
-//     "thalassarche_melanophris": { 
-//         "order": "procellariiformes", 
-//         "family": "diomedeidae", 
-//         "genus": "thalassarche", 
-//         "species": "melanophris", 
-//         "name": "albatros à sourcils noirs", 
-//         "img": "thalassarcheMelanophris.jpg"
-//       }, 
-//     "diomedea_exulans": { 
-//         "order": "procellariiformes", 
-//         "family": "diomedeidae", 
-//         "genus": "diomedea", 
-//         "species": "exulans", 
-//         "name": "albatros hurleur", 
-//         "img": "diomedeaExulans.jpg"
-//       }, 
-//     "fulmarus_glacialis": { 
-//         "order": "procellariiformes", 
-//         "family": "procellariidae", 
-//         "genus": "fulmarus", 
-//         "species": "glacialis", 
-//         "name": "fulmar boréal", 
-//         "img": "fulmarusGlacialis.jpg"
-//       }
-// }
+export const TO_FIX = {
+    "buteo_buteo vulpinus": {"name": "buse de russie ou buse des steppes", "order": "accipitriformes", "family": "accipitridae", "genus": "buteo", "species": "buteo vulpinus"},
+    "hippolais_pallida": {"name": "hypolaïs pâle", "order": "passeriformes", "family": "acrocephalidae", "genus": "hippolais", "species": "pallida"},
+    "hirundo_rupestris": {"name": "hirondelle de rochers", "order": "passeriformes", "family": "hirundinidae", "genus": "hirundo", "species": "rupestris"},
+    "ixobrychus_minutus": {"name": "blongios nain", "order": "pelecaniformes", "family": "ardeidae", "genus": "ixobrychus", "species": "minutus"},
+    "motacilla_flava feldegg": {"name": "bergeronnette des balkans", "order": "passeriformes", "family": "motacillidae", "genus": "motacilla", "species": "flava feldegg"},
+    "motacilla_flava flavissima": {"name": "bergeronnette flavéole", "order": "passeriformes", "family": "motacillidae", "genus": "motacilla", "species": "flava flavissima"},
+    "passer_domesticus italiae": {"name": "moineau cisalpin", "order": "passeriformes", "family": "passeridae", "genus": "passer", "species": "domesticus italiae"},
+    "puffinus_baroli": {"name": "puffin de macaronésie", "order": "procellariiformes", "family": "procellariidae", "genus": "puffinus", "species": "baroli"},
+    "motacilla_alba yarrellii": {"name": "bergeronnette de yarrell", "order": "passeriformes", "family": "motacillidae", "genus": "motacilla", "species": "alba yarrellii"},
+
+}; 
 
 export const ORDER_DATA = {
     "galliformes": {

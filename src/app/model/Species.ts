@@ -1,0 +1,1 @@
+export interface Species{genus: string}; 

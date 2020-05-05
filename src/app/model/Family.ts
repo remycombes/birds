@@ -1,0 +1,1 @@
+export interface Family{description: string[], order: string}; 
