@@ -129,7 +129,11 @@ export class BirdQuizzComponent implements OnInit {
           // INIT STATISTICS ////////////////////////////////////////////////////////
           ///////////////////////////////////////////////////////////////////////////
           case QuizzActionTypes.INIT_STATISTICS:
-            let statsCopy = JSON.parse(JSON.stringify(curr.payload)); 
+            let statsCopy: any = {}; 
+
+            if(curr.payload!=null){            
+              statsCopy = JSON.parse(JSON.stringify(curr.payload)); 
+            }
 
             for(let key of Object.keys(acc.birds)){
               if(statsCopy[key]==undefined){
