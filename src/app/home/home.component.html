@@ -16,7 +16,8 @@
   [ngClass]="{
     'position-menu': page=='menu', 
     'position-quizz': page=='quizz', 
-    'position-library': page=='library'
+    'position-library': page=='library', 
+    'position-statistics': page=='statistics'
   }">
     <!------------------------------------------------------------------------->  
     <!------------------------------- BUTTONS --------------------------------->  
@@ -48,6 +49,7 @@
       <div class="title">OISEAUX</div>
       <div class="button" (click)="page='quizz'">Quizz</div>
       <div class="button" (click)="page='library'">Espèces</div>
+      <div class="button" (click)="page='statistics'">Mon niveau</div>
     </div>
 
     <!------------------------------------------------------------------------->
@@ -74,7 +76,14 @@
     <!------------------------------- QUIZZ ----------------------------------->
     <!------------------------------------------------------------------------->
     <div class="quizz">
-      <app-bird-quizz [birds]="rawBirds"></app-bird-quizz>
+      <app-bird-quizz (onGetStats)="getStats()" (onSetStats)="setStats($event); getStats()" [birds]="rawBirds" [stats]="stats"></app-bird-quizz>
+    </div>
+
+    <!------------------------------------------------------------------------->
+    <!----------------------------- STATISTICS -------------------------------->
+    <!------------------------------------------------------------------------->
+    <div class="statistics">
+      <app-statistics [stats]="stats"></app-statistics>
     </div>
     
   </div>

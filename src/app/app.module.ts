@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { CapitalFirstPipe } from './shared/pipe/capital-first.pipe';
 import { SharedModule } from './shared/shared.module';
 import { NavComponent } from './nav/nav.component';
+import { StatService } from './service/stat.service';
 
 @NgModule({
   declarations: [
@@ -21,10 +22,9 @@ import { NavComponent } from './nav/nav.component';
     AppRoutingModule, 
     CoreModule, 
     SharedModule, 
-    BirdsModule, 
-    
+    BirdsModule
   ],
-  providers: [],  
+  providers: [StatService],  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

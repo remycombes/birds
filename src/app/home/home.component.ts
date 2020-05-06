@@ -2,6 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import { BIRDS_DATA } from 'src/assets/data/birdsData';
 import { BirdCollection } from '../model/BirdCollection';
 import { shuffle } from '../utils/array';
+import { StatService } from '../service/stat.service';
+import { Statistics } from '../model/Statistics';
 
 @Component({
   selector: 'home',
@@ -10,7 +12,8 @@ import { shuffle } from '../utils/array';
 export class HomeComponent implements OnInit{  
 
   // DISPLAYED DATA //////////////////////////////////////////////////////////////////////
-  rawBirds: BirdCollection = {};     
+  rawBirds: BirdCollection = {};
+  stats: Statistics = {}; 
 
   // NAVIGATION //////////////////////////////////////////////////////////////////////////
   page: string = "menu"; 
@@ -18,9 +21,15 @@ export class HomeComponent implements OnInit{
   navigationExtended: boolean = false; 
 
   ////////////////////////////////////////////////////////////////////////////////////////
+  // CONSTRUCTOR /////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////
+  constructor(private statsService: StatService){}
+
+  ////////////////////////////////////////////////////////////////////////////////////////
   // INIT ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
-  ngOnInit(){
+  ngOnInit(){    
+    this.getStats(); 
     for(let bird of Object.keys(BIRDS_DATA)){
       this.rawBirds[bird]={        
         order: BIRDS_DATA[bird].order, 
@@ -77,6 +86,15 @@ export class HomeComponent implements OnInit{
     let messages = ['BRAVO !', 'EXCEPTIONNEL !', 'CORRECT !', 'JUDICIEUX !', 'PERTINENT !', 'MONUMENTAL !', 'VRAI !', 'CONGRATULATIONS !', 'VOUS ETES UN GENIE !', 'BRAVO EINSTEIN !']; 
     shuffle(messages); 
     return messages[0]; 
+  }
+
+  getStats(): void{    
+    this.stats =  JSON.parse(localStorage.getItem('stats')); 
+    console.log(this.stats); 
+  }
+
+  setStats(stats: Statistics): void{
+    localStorage.setItem('stats', JSON.stringify(stats))
   }
 
 }

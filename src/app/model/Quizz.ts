@@ -1,4 +1,5 @@
 import { BirdCollection } from './BirdCollection';
+import { Statistics } from './Statistics';
 
 export interface Quizz{
     mode: string; // loading, question, response
@@ -12,5 +13,6 @@ export interface Quizz{
     previous2: null; 
     givenAnswer: string; 
     answers: string[]; 
-    statistics: {[key:string]: [boolean]}
+    responsesForBird: {[key:string]: [boolean]}
+    statistics: Statistics
   }
