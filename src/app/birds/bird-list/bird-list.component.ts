@@ -100,12 +100,13 @@ export class BirdListComponent implements OnInit {
           // ADD BIRDS  /////////////////////////////////////////////////////////////
           ///////////////////////////////////////////////////////////////////////////
           case LibraryActionTypes.SEARCH_BIRD:            
-            libraryCopy.searchString = curr.payload.toLocaleLowerCase();
+            libraryCopy.searchString = curr.payload.toLocaleLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             libraryCopy.searchedBirds = [];
             let number = 0;
             if(libraryCopy.searchString!=''){
               for(let key of Object.keys(libraryCopy.birds)){
-                if(libraryCopy.birds[key].name.toLocaleLowerCase().indexOf(libraryCopy.searchString)!= -1){
+                let normalisedName = libraryCopy.birds[key].name.toLocaleLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                if(normalisedName.indexOf(libraryCopy.searchString)!= -1){
                   libraryCopy.searchedBirds.push(key); 
                   number++; 
                 }              
