@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit{
   rawBirds: BirdCollection = {};     
 
   // NAVIGATION //////////////////////////////////////////////////////////////////////////
-  page: string = "menu"; 
+  page: string = "library"; 
   fullScreen: boolean = false; 
   navigationExtended: boolean = false; 
 
