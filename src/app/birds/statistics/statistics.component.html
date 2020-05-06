@@ -1,0 +1,6 @@
+<div class="chart">
+    <div class="species" *ngFor="let stat of stats | keyvalue" [ngClass]="{'known':stat.value==1}"> 
+        {{stat.key}} - {{stat.value}}
+    </div>
+</div>
+

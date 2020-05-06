@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Bird } from 'src/app/model/Bird';
 import { Observable, Subject, merge } from 'rxjs';
 import { BirdCollection } from 'src/app/model/BirdCollection';
 import { map, scan } from 'rxjs/operators';
 import { Quizz } from 'src/app/model/Quizz';
 import { shuffle } from 'src/app/utils/array';
+import { Statistics } from 'src/app/model/Statistics';
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // SETTINGS /////////////////////////////////////////////////////////////////////////////
@@ -20,16 +21,19 @@ enum QuizzActionTypes {
   GIVE_ANSWER = "Give answer", 
   INIT_QUIZZ = "Init quizz",
   UPDATE_QUIZZ = "Update quizz", 
-  INIT_STATISTICS = "", 
+  INIT_STATISTICS = "Init statistics", 
   SET_MODE= "Set mode"
 }; 
 class AddBirdsAction{ readonly type = QuizzActionTypes.ADD_BIRDS; constructor(public payload: {[key: string]: Bird}) {}}
+
+class InitStatisticsAction{ readonly type = QuizzActionTypes.INIT_STATISTICS; constructor(public payload: Statistics) {}}
+
 class GetAnswersAction{readonly type = QuizzActionTypes.GET_ANSWERS;}
 class GiveAnswerAction{ readonly type = QuizzActionTypes.GIVE_ANSWER; constructor(public payload: string) {} }
 class SetModeAction{ readonly type = QuizzActionTypes.SET_MODE; constructor(public payload: string) {} }
 class InitQuizzAction{ readonly type = QuizzActionTypes.INIT_QUIZZ; }
 class UpdateQuizzAction{ readonly type = QuizzActionTypes.UPDATE_QUIZZ; }
-type QuizzActions = AddBirdsAction | GetAnswersAction | GiveAnswerAction | InitQuizzAction | UpdateQuizzAction | SetModeAction; 
+type QuizzActions = AddBirdsAction | InitStatisticsAction | GetAnswersAction | GiveAnswerAction | InitQuizzAction | UpdateQuizzAction | SetModeAction; 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -44,12 +48,16 @@ export class BirdQuizzComponent implements OnInit {
   // INPUTS ////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   @Input() birds: any; 
+  @Input() stats: Statistics; 
+  @Output() onGetStats = new EventEmitter(); 
+  @Output() onSetStats = new EventEmitter<Statistics>();   
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   // QUIZZ INTERFACES //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   setMode$: Subject<string> = new Subject(); 
-  addBirds$: Subject<BirdCollection> = new Subject(); 
+  addBirds$: Subject<BirdCollection> = new Subject();
+  initStatistics$: Subject<Statistics> = new Subject(); 
   initQuizz$: Subject<boolean> = new Subject();
   getAnswers$: Subject<boolean> = new Subject(); 
   giveAnswer$: Subject<string> = new Subject();
@@ -59,6 +67,7 @@ export class BirdQuizzComponent implements OnInit {
   // QUIZZ ACTIONS /////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   addBirdsAction$ : Observable<AddBirdsAction> = this.addBirds$.pipe( map((birds)=>{return new AddBirdsAction(birds)}) );
+  initStatisticsAction$ : Observable<InitStatisticsAction> = this.initStatistics$.pipe( map((stats)=>{return new InitStatisticsAction(stats)}) );
   setModeAction$: Observable<SetModeAction> = this.setMode$.pipe( map(mode=>{return new SetModeAction(mode)}) ); 
   initQuizzAction$: Observable<InitQuizzAction> = this.initQuizz$.pipe( map(()=>{return new InitQuizzAction()}) ); 
   getAnswersAction$: Observable<GetAnswersAction> = this.getAnswers$.pipe( map(()=>{return new GetAnswersAction()}) ); 
@@ -66,6 +75,7 @@ export class BirdQuizzComponent implements OnInit {
   updateQuizzAction$: Observable<UpdateQuizzAction> = this.updateQuizz$.pipe( map(()=>{return new UpdateQuizzAction()}) ); 
   quizzActions$: Observable<QuizzActions> = merge(
     this.addBirdsAction$, 
+    this.initStatisticsAction$, 
     this.setModeAction$, 
     this.initQuizzAction$, 
     this.getAnswersAction$, 
@@ -85,6 +95,7 @@ export class BirdQuizzComponent implements OnInit {
     previous2: null, 
     givenAnswer: null, 
     answers: [], 
+    responsesForBird: {}, 
     statistics: {}
   }
   //////////////////////////////////////////////////////////////////////////////////
@@ -93,6 +104,7 @@ export class BirdQuizzComponent implements OnInit {
   quizz$ : Observable<Quizz> = this.quizzActions$.pipe(
     scan(
       (acc : Quizz, curr: QuizzActions)=>{
+        console.log(curr.type); 
         let quizzCopy = JSON.parse(JSON.stringify(acc));
         switch(curr.type){
           ///////////////////////////////////////////////////////////////////////////          
@@ -100,14 +112,41 @@ export class BirdQuizzComponent implements OnInit {
           ///////////////////////////////////////////////////////////////////////////
           case QuizzActionTypes.ADD_BIRDS:
             let birdsCopy = JSON.parse(JSON.stringify(curr.payload)); 
+            let stats: Statistics = {};             
             for(let key of Object.keys(birdsCopy)){
+              stats[key]=0; 
               birdsCopy[key].img = ""; 
               birdsCopy[key].img = ""+birdsCopy[key].genus.toLocaleLowerCase() + birdsCopy[key].species.charAt(0).toUpperCase() + birdsCopy[key].species.slice(1)+'.jpg'
             }
             return {...acc, 
               birds: birdsCopy, 
-              current: null
+              current: null, 
+              responsesForBird: {}, 
+              statistics: {}
             };
+
+          ///////////////////////////////////////////////////////////////////////////          
+          // INIT STATISTICS ////////////////////////////////////////////////////////
+          ///////////////////////////////////////////////////////////////////////////
+          case QuizzActionTypes.INIT_STATISTICS:
+            let statsCopy = JSON.parse(JSON.stringify(curr.payload)); 
+
+            for(let key of Object.keys(acc.birds)){
+              if(statsCopy[key]==undefined){
+                statsCopy[key]=0; 
+              }
+            }
+            for (let key of Object.keys(statsCopy)){
+              if(acc.birds[key]==undefined){
+                delete statsCopy[key]; 
+              }
+            } 
+            // SIDE EFFECT ! 
+            this.onSetStats.next(statsCopy); 
+            return {...acc,
+              statistics: statsCopy
+            };
+            
           ///////////////////////////////////////////////////////////////////////////
           // SET MODE ///////////////////////////////////////////////////////////////          
           ///////////////////////////////////////////////////////////////////////////
@@ -120,8 +159,16 @@ export class BirdQuizzComponent implements OnInit {
           ///////////////////////////////////////////////////////////////////////////
           case QuizzActionTypes.INIT_QUIZZ:
             quizzCopy.all = []; 
+            quizzCopy.toLearn = []; 
+            
             for(let bird of Object.keys(acc.birds)){quizzCopy.all.push(bird);}
-            quizzCopy.toLearn = JSON.parse(JSON.stringify(quizzCopy.all)); 
+
+            let all = JSON.parse(JSON.stringify(quizzCopy.all)); 
+            for(let bird of all){
+              if (acc.statistics[bird]==0){quizzCopy.toLearn.push(bird)}
+            }
+            // quizzCopy.toLearn = JSON.parse(JSON.stringify(quizzCopy.all)); 
+
             quizzCopy.inProgress = [];
             while((quizzCopy.inProgress.length < SPAN)&& this.pickItemFromToLearn(quizzCopy.toLearn, quizzCopy.inProgress)!=null){
               quizzCopy.inProgress.push(this.pickItemFromToLearn(quizzCopy.all, quizzCopy.inProgress));
@@ -132,9 +179,9 @@ export class BirdQuizzComponent implements OnInit {
             quizzCopy.previous2 = null; 
             quizzCopy.givenAnswer = null; 
             quizzCopy.answer = []; 
-            quizzCopy.statistics = {}
+            quizzCopy.responsesForBird = {}
             for (let bird of Object.keys(acc.birds)){
-              quizzCopy.statistics[bird]=[]; 
+              quizzCopy.responsesForBird[bird]=[]; 
             }
             return quizzCopy;           
           ///////////////////////////////////////////////////////////////////////////
@@ -142,20 +189,34 @@ export class BirdQuizzComponent implements OnInit {
           ///////////////////////////////////////////////////////////////////////////
           case QuizzActionTypes.UPDATE_QUIZZ: 
             // remove all the known birds from toLearn and inProgress
-            for (let i=quizzCopy.toLearn.length-1; i>=0; i--){
-              if(quizzCopy.statistics[quizzCopy.toLearn[i]].length >= 2 && quizzCopy.statistics[quizzCopy.toLearn[i]].indexOf(false)==-1) 
+            
+            for (let i=quizzCopy.toLearn.length-1; i>=0; i--){              
+              if(
+                quizzCopy.responsesForBird[quizzCopy.toLearn[i]].length >= 2 
+                && quizzCopy.responsesForBird[quizzCopy.toLearn[i]].indexOf(false)==-1) 
               {quizzCopy.toLearn.splice(i, 1) }
             }
             for (let i=quizzCopy.inProgress.length-1; i>=0; i--){
-              if(quizzCopy.statistics[quizzCopy.inProgress[i]].length >= 2 && quizzCopy.statistics[quizzCopy.inProgress[i]].indexOf(false)==-1) 
+              if(
+                quizzCopy.responsesForBird[quizzCopy.inProgress[i]].length >= 2 
+                && quizzCopy.responsesForBird[quizzCopy.inProgress[i]].indexOf(false)==-1) 
               {quizzCopy.inProgress.splice(i, 1)}
             }
             quizzCopy.learned = [];             
-            for (let bird of Object.keys(quizzCopy.statistics)){
-              if(quizzCopy.statistics[bird].length >=2 && quizzCopy.statistics[bird].indexOf(false)== -1){
+            for (let bird of Object.keys(quizzCopy.responsesForBird)){
+              if(
+                quizzCopy.responsesForBird[bird].length >=2 
+                && quizzCopy.responsesForBird[bird].indexOf(false)== -1){
                 quizzCopy.learned.push(bird); 
               }
             }
+            for(let learned of quizzCopy.learned){
+              quizzCopy.statistics[learned]=1; 
+            }
+
+            // SIDE EFFECT !
+            this.onSetStats.next(quizzCopy.statistics); 
+            
             return quizzCopy; 
           ///////////////////////////////////////////////////////////////////////////
           // GET ANSWERS ///////////////////////////////////////////////////////////
@@ -174,8 +235,8 @@ export class BirdQuizzComponent implements OnInit {
           ///////////////////////////////////////////////////////////////////////////
           case QuizzActionTypes.GIVE_ANSWER:
             quizzCopy.givenAnswer = curr.payload; 
-            quizzCopy.statistics[acc.current].unshift(curr.payload==quizzCopy.current); 
-            quizzCopy.statistics[acc.current].splice(2);
+            quizzCopy.responsesForBird[acc.current].unshift(curr.payload==quizzCopy.current); 
+            quizzCopy.responsesForBird[acc.current].splice(2);
             return quizzCopy; 
           default: return ; 
         }
@@ -198,6 +259,7 @@ export class BirdQuizzComponent implements OnInit {
     ); 
     this.setMode$.next("question");
     this.addBirds$.next(this.birds); 
+    this.initStatistics$.next(this.stats); 
     this.initQuizz$.next(true); 
     this.updateQuizz$.next(true); 
     this.getAnswers$.next(true); 
