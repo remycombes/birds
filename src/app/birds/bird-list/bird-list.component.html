@@ -11,7 +11,7 @@
   </div>      
 </div>
 
-<div class="header">
+<!-- <div class="header">
   <div class="space-left"></div>
   <div class="space-search">
     <div class="drop-down-select">
@@ -27,9 +27,25 @@
     </div>
   </div>  
   <div class="space-right"></div>
-</div>  
+</div>   -->
 
-<div class="list" id="list">
+<div class="map-area">
+  <div class="map">
+    <ng-container *ngFor="let order of library.phylo | keyvalue">
+      <ng-container *ngFor="let family of library.phylo[order.key] | keyvalue">
+        <ng-container *ngFor="let species of library.phylo[order.key][family.key] | keyvalue">
+          <div [id]="species.value.key" class="species" (click)="selectBirdInLibrary(species.value.genus, species.value.species)">            
+            AAA
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+
+
+<!-- <div class="list" id="list">
   <ng-container *ngFor="let order of library.phylo | keyvalue">
     <div class="order">{{order.key | capitalFirst}}</div>
     <ng-container *ngFor="let family of library.phylo[order.key] | keyvalue">
@@ -40,15 +56,14 @@
 
               <div class="photo"><img [src]="'assets/miniature/tn_'+species.value.img" alt=""></div>
               <div class="name">
-                {{species.value.name | capitalFirst}} <br>
-                <span class="latin">{{species.value.genus | capitalFirst}} {{species.value.species}}</span>
+                {{species.value.name | capitalFirst}}
               </div>
             </div>
         </ng-container>
       </div>
     </ng-container>
   </ng-container>
-</div>
+</div> -->
 
 <!-- <div class="footer">    
   

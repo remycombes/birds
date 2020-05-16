@@ -44,18 +44,18 @@
     <!------------------------------------------------------------------------->
     <!-------------------------------- MENU ----------------------------------->
     <!------------------------------------------------------------------------->
-    <div class="menu">    
+    <!-- <div class="menu">    
       <img class="background" [src]="'assets/photos/acanthisFlammea.jpg'">
       <div class="title">OISEAUX</div>
       <div class="button" (click)="page='quizz'">Quizz</div>
       <div class="button" (click)="page='library'">Espèces</div>
       <div class="button" (click)="page='statistics'">Mon niveau</div>
-    </div>
+    </div> -->
 
     <!------------------------------------------------------------------------->
     <!----------------------------- NAVIGATION -------------------------------->
     <!------------------------------------------------------------------------->
-    <div *ngIf="navigationExtended" class="navigation-background" (click)="navigationExtended=false;"></div>
+    <!-- <div *ngIf="navigationExtended" class="navigation-background" (click)="navigationExtended=false;"></div>
     <div class="navigation" [ngClass]="{extended: navigationExtended}">
       <app-nav 
         (onChangePage)="page=$event; navigationExtended=false"
@@ -63,7 +63,7 @@
         [isFullScreen]="fullScreen"
         [currentPage]="page"
       ></app-nav>
-    </div>
+    </div> -->
   
     <!-------------------------------------------------------------------------->
     <!------------------------------- LIBRARY ---------------------------------->
@@ -75,16 +75,16 @@
     <!------------------------------------------------------------------------->
     <!------------------------------- QUIZZ ----------------------------------->
     <!------------------------------------------------------------------------->
-    <div class="quizz">
+    <!-- <div class="quizz">
       <app-bird-quizz (onGetStats)="getStats()" (onSetStats)="setStats($event); getStats()" [birds]="rawBirds" [stats]="stats"></app-bird-quizz>
-    </div>
+    </div> -->
 
     <!------------------------------------------------------------------------->
     <!----------------------------- STATISTICS -------------------------------->
     <!------------------------------------------------------------------------->
-    <div class="statistics">
+    <!-- <div class="statistics">
       <app-statistics [stats]="stats"></app-statistics>
-    </div>
+    </div> -->
     
   </div>
   

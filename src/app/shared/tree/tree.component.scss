@@ -1,0 +1,22 @@
+svg{position: absolute; top: 0; left: 0;}
+
+
+.white{
+    fill: white; 
+}
+
+
+.line{
+    fill: none; 
+    stroke: black; 
+    stroke-width: 3px; 
+}
+
+.debug{
+    position: absolute; 
+    bottom: 0; 
+    left: 0;
+    width: 100%;  
+    background: lightGrey; 
+}
+
