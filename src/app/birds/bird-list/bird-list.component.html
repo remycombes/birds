@@ -1,7 +1,7 @@
 <!-- pre-loader -->
-<div class="pre-loader">
+<!-- <div class="pre-loader">
   <img *ngFor="let bird of library.birds | keyvalue" [src]="'assets/miniature/tn_'+library.birds[bird.key].img" alt="">
-</div>
+</div> -->
 
 <div class="pop-up-area" *ngIf="library.current!=''" (click)="deselectBird()">
   <div class="pop-up">
@@ -28,17 +28,29 @@
   </div>  
   <div class="space-right"></div>
 </div>   -->
-
 <div class="map-area">
   <div class="map">
-    <ng-container *ngFor="let order of library.phylo | keyvalue">
-      <ng-container *ngFor="let family of library.phylo[order.key] | keyvalue">
+    <ng-container *ngFor="let order of birds.orders | keyvalue">
+      <ng-container *ngFor="let family of birds.orders[order.key].families | keyvalue">
+        <ng-container *ngFor="let species of birds.orders[order.key].families[family.key].species | keyvalue">          
+          <div [ngStyle]="{
+            gridColumnStart:species.value.x,
+            gridRowStart:species.value.y
+            }" 
+            [id]="species.value.key" class="species" (click)="selectBirdInLibrary(species.value.genus, species.value.species)">
+            <img [src]="'assets/miniature/tn_'+species.value.img" alt="">
+            <!-- {{species.value.name}} -->
+          </div>
+        </ng-container>
+      </ng-container>
+      
+      <!-- <ng-container *ngFor="let family of library.phylo[order.key] | keyvalue">
         <ng-container *ngFor="let species of library.phylo[order.key][family.key] | keyvalue">
           <div [id]="species.value.key" class="species" (click)="selectBirdInLibrary(species.value.genus, species.value.species)">            
             AAA
           </div>
         </ng-container>
-      </ng-container>
+      </ng-container> -->
     </ng-container>
   </div>
 </div>

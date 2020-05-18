@@ -1,3 +1,54 @@
+export const ORDERS = {
+    "galliformes": {"name": "Galliformes", 
+        families: ["odontophoridae", "phasianidae"]}, 
+    "anseriformes": {"name": "Anseriformes", 
+        families: ["anatidae"]}, 
+    "gaviiformes": {"name": "Gaviformes", 
+        families: ["gaviidae"]}
+}
+
+export const FAMILIES = {
+    "odontophoridae": {"name": "Odontophoridés", 
+        species: [
+            "callipepla_californica", 
+            "colinus_virginianus"]}, 
+    "phasianidae": {"name": "Phasianidés", 
+        species: [
+            "coturnix_coturnix", 
+            "phasianus_colchicus", 
+            "syrmaticus_reevesii", 
+            "syrmaticus_reevesii", 
+            "bonasa_bonasia", 
+            "lagopus_muta" ]}, 
+    "anatidae": {"name": "Anatidés", 
+        species: [
+            "histrionicus_histrionicus", 
+            "branta_canadensis", 
+            "branta_bernicla"
+        ]}, 
+    "gaviidae": {"name": "Gaviidés", 
+        species: [
+            "gavia_arctica"]}
+}
+
+export const SPECIES = {
+    "callipepla_californica": {name: "Colin de Californie", img: "callipeplaCalifornica.jpg"}, 
+    "colinus_virginianus": {name: "Colin de Virginie", img: "colinusVirginianus.jpg"}, 
+    "coturnix_coturnix": {name: "Caille des blés", img: "coturnixCoturnix.jpg"}, 
+    "phasianus_colchicus": {name: "Faisan de Colchide", img: "phasianusColchicus.jpg"}, 
+    "syrmaticus_reevesii": {name: "Faisan vénéré", img: "syrmaticusReevesii.jpg"}, 
+    "bonasa_bonasia": {name: "Gélinotte des bois", img: "bonasaBonasia.jpg"}, 
+    "lagopus_muta": {name: "Lagopède alpin", img: "lagopusMuta.jpg"}, 
+    "histrionicus_histrionicus": {name: "Arlequin plongeur", img: "histrionicusHistrionicus.jpg"}, 
+    "branta_canadensis": {name: "Bernache du canada", img: "brantaCanadensis.jpg"}, 
+    "branta_bernicla": {name: "Bernache cravant", img: "brantaBernicla.jpg"}, 
+    "gavia_arctica": {name: "Plongeon arctique", img: "gaviaArctica.jpg"}
+}
+
+
+
+
+
 export const BIRDS_DATA = {
   "callipepla_californica": {"name": "colin de californie", "order": "galliformes", "family": "odontophoridae", "genus": "callipepla", "species": "californica"},
   "colinus_virginianus": {"name": "colin de virginie", "order": "galliformes", "family": "odontophoridae", "genus": "colinus", "species": "virginianus"},

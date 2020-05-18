@@ -73,6 +73,7 @@ export class BirdListComponent implements OnInit {
           // ADD BIRDS  /////////////////////////////////////////////////////////////
           ///////////////////////////////////////////////////////////////////////////
           case LibraryActionTypes.ADD_BIRDS:
+            console.log(curr.payload); 
             libraryCopy.birds = curr.payload;            
             libraryCopy.positions = []; 
             let birds = libraryCopy.birds; 
@@ -85,7 +86,7 @@ export class BirdListComponent implements OnInit {
                 name: birds[key].name,
                 genus: birds[key].genus,
                 species: birds[key].species, 
-                img: birds[key].genus.toLocaleLowerCase() + birds[key].species.charAt(0).toUpperCase() + birds[key].species.slice(1) + '.jpg'
+                // img: birds[key].genus.toLocaleLowerCase() + birds[key].species.charAt(0).toUpperCase() + birds[key].species.slice(1) + '.jpg'
               }; 
             }
             libraryCopy.phylo = phylo;
@@ -137,7 +138,19 @@ export class BirdListComponent implements OnInit {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   // DISPLAYED DATA ////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
-  library: Library; 
+  library: Library = {
+    birds: {},  
+    phylo: {}, 
+    available: {    
+      orders: {}, 
+      families: {}, 
+      genus: {}, 
+      species: {}
+    }, 
+    current: "", 
+    searchString: "", 
+    searchedBirds: []
+  }; 
   search= new FormControl(''); 
 
   constructor() { }

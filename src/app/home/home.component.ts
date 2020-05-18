@@ -4,6 +4,7 @@ import { BirdCollection } from '../model/BirdCollection';
 import { shuffle } from '../utils/array';
 import { StatService } from '../service/stat.service';
 import { Statistics } from '../model/Statistics';
+import { BirdService } from '../service/bird.service';
 
 @Component({
   selector: 'home',
@@ -23,23 +24,27 @@ export class HomeComponent implements OnInit{
   ////////////////////////////////////////////////////////////////////////////////////////
   // CONSTRUCTOR /////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
-  constructor(private statsService: StatService){}
+  constructor(private statsService: StatService, private birdService: BirdService){}
 
   ////////////////////////////////////////////////////////////////////////////////////////
   // INIT ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
   ngOnInit(){    
     this.getStats(); 
-    for(let bird of Object.keys(BIRDS_DATA)){
-      this.rawBirds[bird]={        
-        order: BIRDS_DATA[bird].order, 
-        family: BIRDS_DATA[bird].family, 
-        genus: BIRDS_DATA[bird].genus, 
-        species: BIRDS_DATA[bird].species, 
-        name: BIRDS_DATA[bird].name, 
-        img: BIRDS_DATA[bird].genus + BIRDS_DATA[bird].species.charAt(0).toUpperCase() + BIRDS_DATA[bird].species.slice(1) + '.jpg'
-      }
-    }
+
+    this.birdService.getBirds().subscribe(
+      data=> this.rawBirds = data
+    ); 
+    // for(let bird of Object.keys(BIRDS_DATA)){
+    //   this.rawBirds[bird]={        
+    //     order: BIRDS_DATA[bird].order, 
+    //     family: BIRDS_DATA[bird].family, 
+    //     genus: BIRDS_DATA[bird].genus, 
+    //     species: BIRDS_DATA[bird].species, 
+    //     name: BIRDS_DATA[bird].name, 
+    //     img: BIRDS_DATA[bird].genus + BIRDS_DATA[bird].species.charAt(0).toUpperCase() + BIRDS_DATA[bird].species.slice(1) + '.jpg'
+    //   }
+    // }
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   // METHODS ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,6 +100,10 @@ export class HomeComponent implements OnInit{
 
   setStats(stats: Statistics): void{
     localStorage.setItem('stats', JSON.stringify(stats))
+  }
+
+  getBirds(): void{
+
   }
 
 }
