@@ -84,6 +84,7 @@ $pop-up-background: hsla(0,0,0,0.7);
 $header-background: darken( grey, 5); 
 $header-height: 50px; 
 .map-area{
+    touch-action: pinch-zoom;
     position: absolute; 
     top: 0; 
     left: 0; 

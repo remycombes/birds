@@ -210,5 +210,8 @@ select[multiple]
 }
 
 
-// disable load
-body{overscroll-behavior-y: contain;}
+// disable load and touch
+body{
+	overscroll-behavior-y: contain;
+	touch-action: none;
+}
