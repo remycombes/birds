@@ -5,9 +5,9 @@
 
 <div class="pop-up-area" *ngIf="library.current!=''" (click)="deselectBird()">
   <div class="pop-up">
-    <img class="pop-up-photo" [src]="'assets/photos/'+library.birds[library.current].img" alt="">
-    <div class="pop-up-name">{{library.birds[library.current].name | capitalFirst}}</div>
-    <span class="pop-up-latin">{{library.birds[library.current].genus | capitalFirst}} {{library.birds[library.current].species | lowercase}}</span>
+    <img class="pop-up-photo" [src]="'assets/photos/'+library.birds.species[library.current].img" alt="">
+    <div class="pop-up-name">{{library.birds.species[library.current].name | capitalFirst}}</div>
+    <!-- <span class="pop-up-latin">{{library.birds.species[library.current].genus | capitalFirst}} {{library.birds.species[library.current].species | lowercase}}</span> -->
   </div>      
 </div>
 
@@ -29,20 +29,17 @@
   <div class="space-right"></div>
 </div>   -->
 <div class="map-area">
-  <div class="map">
-    <ng-container *ngFor="let order of birds.orders | keyvalue">
-      <ng-container *ngFor="let family of birds.orders[order.key].families | keyvalue">
-        <ng-container *ngFor="let species of birds.orders[order.key].families[family.key].species | keyvalue">          
-          <div [ngStyle]="{
-            gridColumnStart:species.value.x,
-            gridRowStart:species.value.y
-            }" 
-            [id]="species.value.key" class="species" (click)="selectBirdInLibrary(species.value.genus, species.value.species)">
-            <img [src]="'assets/miniature/tn_'+species.value.img" alt="">
-            <!-- {{species.value.name}} -->
-          </div>
-        </ng-container>
-      </ng-container>
+  <div class="map">    
+    <ng-container *ngFor="let species of birds.species | keyvalue">
+      <div [ngStyle]="{
+        gridColumnStart:species.value.x + birds.families[species.value.family].x +  birds.orders[species.value.order].x,
+        gridRowStart:species.value.y + birds.families[species.value.family].y +  birds.orders[species.value.order].y
+        }" 
+        [id]="species.value.key" class="species" (click)="selectBirdInLibrary(species.key)">
+        <img [src]="'assets/miniature/tn_'+species.value.img" alt="">        
+      </div>
+    </ng-container>
+
       
       <!-- <ng-container *ngFor="let family of library.phylo[order.key] | keyvalue">
         <ng-container *ngFor="let species of library.phylo[order.key][family.key] | keyvalue">
@@ -51,7 +48,6 @@
           </div>
         </ng-container>
       </ng-container> -->
-    </ng-container>
   </div>
 </div>
 

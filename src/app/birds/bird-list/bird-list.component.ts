@@ -95,6 +95,7 @@ export class BirdListComponent implements OnInit {
           // ADD BIRDS  /////////////////////////////////////////////////////////////
           ///////////////////////////////////////////////////////////////////////////
           case LibraryActionTypes.SELECT_BIRD:
+            console.log(curr.payload); 
             libraryCopy.current = curr.payload; 
             return {...acc, current: curr.payload};
           ///////////////////////////////////////////////////////////////////////////
@@ -177,8 +178,8 @@ export class BirdListComponent implements OnInit {
     this.selectBird$.next(''); 
   }
 
-  selectBirdInLibrary(genus: string, species: string){
-    this.selectBird$.next(genus + '_' + species); 
+  selectBirdInLibrary(bird: string){
+    this.selectBird$.next(bird); 
   }  
 
   searchBird(value: string){    

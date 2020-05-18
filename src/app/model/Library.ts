@@ -13,7 +13,7 @@ export interface Library{
       genus: {[key: string]: Genus},  
       species: {[key: string]: Species}
     }; 
-    current: string, 
+    current?: string, 
     searchString: string, 
     searchedBirds: string[]
   }
