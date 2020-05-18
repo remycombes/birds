@@ -101,16 +101,17 @@ $header-height: 50px;
         position: absolute; 
         
         display: grid; 
-        grid-template-columns: repeat(5, 120px);
-        grid-template-rows: repeat(7, 120px);
-        grid-gap: 10px;
+        grid-template-columns: repeat(5, 50px);
+        grid-template-rows: repeat(7, 50px);
+        grid-gap: 0px;
     }
 
     .species{
         position: relative; 
         display: inline-block; 
-        height: 100px; 
-        width: 100px; 
+        height: 40px; 
+        width: 40px;        
+        margin: 5px; 
         overflow: hidden;
         background: grey; 
     }

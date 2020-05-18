@@ -55,7 +55,7 @@
     <!------------------------------------------------------------------------->
     <!----------------------------- NAVIGATION -------------------------------->
     <!------------------------------------------------------------------------->
-    <!-- <div *ngIf="navigationExtended" class="navigation-background" (click)="navigationExtended=false;"></div>
+    <div *ngIf="navigationExtended" class="navigation-background" (click)="navigationExtended=false;"></div>
     <div class="navigation" [ngClass]="{extended: navigationExtended}">
       <app-nav 
         (onChangePage)="page=$event; navigationExtended=false"
@@ -63,7 +63,7 @@
         [isFullScreen]="fullScreen"
         [currentPage]="page"
       ></app-nav>
-    </div> -->
+    </div>
   
     <!-------------------------------------------------------------------------->
     <!------------------------------- LIBRARY ---------------------------------->
