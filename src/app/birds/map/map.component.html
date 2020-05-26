@@ -7,7 +7,7 @@
     {{touch2.end.x - touch2.start.x}} | {{touch2.end.y - touch2.start.y}}
 </div> -->
 
-<!-- {{currentMagnitude / initMagnitude}} -->
+<!-- {{currentMagnitude / initMagnitude  } -->
 
 
 
@@ -37,7 +37,7 @@
 <div class="aligner">    
     <div class="map" [ngStyle]="{        
         'transform': 'translate(' + (camera.position.x + camera.storedPosition.x) * camera.zoom + 'px,' + (camera.position.y + camera.storedPosition.y) * camera.zoom  + 'px) scale('+(camera.zoom)+')'}">
-        <ng-container *ngFor="let species of birds.species | keyvalue">
+        <ng-container *ngFor="let species of birds.species | keyvalue"> 
             <div             
                 [ngStyle]="{
             gridColumnStart:species.value.x + birds.families[species.value.family].x +  birds.orders[species.value.order].x,
