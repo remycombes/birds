@@ -198,5 +198,8 @@ export class BirdListComponent implements OnInit {
       behavior: 'auto'
     });
   }
+  test(){
+    console.log("test"); 
+  }
 
 }

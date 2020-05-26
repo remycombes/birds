@@ -1,0 +1,76 @@
+<!-- {{nbTouches}}
+<div *ngIf="touch1">
+    {{touch1.end.x - touch1.start.x}} | {{touch1.end.y - touch1.start.y}}
+</div>
+
+<div *ngIf="touch2">
+    {{touch2.end.x - touch2.start.x}} | {{touch2.end.y - touch2.start.y}}
+</div> -->
+
+<!-- {{currentMagnitude / initMagnitude}} -->
+
+
+
+<!-- (touchstart)="$event.preventDefault();touchStart($event)"
+    (touchmove)="$event.preventDefault();touchMove($event)"
+    (touchend)="$event.preventDefault();touchEnd($event)" -->
+
+<div style="position: fixed; top: 0; left: 0; background: rgb(207, 198, 198); z-index: 10;">
+    position: {{camera.position.x + ' ' + camera.position.y}} <br>
+    storedPosition: {{camera.storedPosition.x + ' ' + camera.storedPosition.y}} <br>
+    mag: {{camera.mag}} <br>
+    storedMag: {{camera.storedMag}} <br>
+    zoom: {{camera.zoom}} <br>
+    storedZoom: {{camera.storedZoom}} <br>
+</div>
+
+
+<div id="map-control" class="control" 
+    (touchstart)="screenTouchStart$.next($event)"
+    (touchmove)="screenTouchMove$.next($event)"
+    (touchend)="screenTouchEnd$.next($event)"    
+></div>
+
+<!-- <div class="map" [ngStyle]="{        
+    'transform': 'scale('+(camera.zoom)+') translate(' + (camera.position.x + camera.storedPosition.x)  / camera.zoom + 'px,' + (camera.position.y + camera.storedPosition.y) / camera.zoom + 'px)'}"> -->
+
+<div class="aligner">    
+    <div class="map" [ngStyle]="{        
+        'transform': 'translate(' + (camera.position.x + camera.storedPosition.x) * camera.zoom + 'px,' + (camera.position.y + camera.storedPosition.y) * camera.zoom  + 'px) scale('+(camera.zoom)+')'}">
+        <ng-container *ngFor="let species of birds.species | keyvalue">
+            <div             
+                [ngStyle]="{
+            gridColumnStart:species.value.x + birds.families[species.value.family].x +  birds.orders[species.value.order].x,
+            gridRowStart:species.value.y + birds.families[species.value.family].y +  birds.orders[species.value.order].y
+            }" 
+            [id]="species.value.key" class="species">
+            <img [src]="'assets/miniature/tn_'+species.value.img" alt="">        
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+
+
+<!-- <div class="aligner">    
+    <div class="map" [ngStyle]="{
+        'transform':             
+            'scale('+getZoom()+')' + 
+            'translate(' + position().x * getZoom()  + 'px,' + position().y * getZoom() + 'px)'
+            
+    }">
+        <ng-container *ngFor="let species of birds.species | keyvalue">
+            <div [ngStyle]="{
+            gridColumnStart:species.value.x + birds.families[species.value.family].x +  birds.orders[species.value.order].x,
+            gridRowStart:species.value.y + birds.families[species.value.family].y +  birds.orders[species.value.order].y
+            }" 
+            [id]="species.value.key" class="species">
+            <img [src]="'assets/miniature/tn_'+species.value.img" alt="">        
+            </div>
+        </ng-container>
+
+
+    </div>
+</div> -->
+
+
