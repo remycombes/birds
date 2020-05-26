@@ -11,6 +11,7 @@ import { SharedModule } from './shared/shared.module';
 import { NavComponent } from './nav/nav.component';
 import { StatService } from './service/stat.service';
 
+
 @NgModule({
   declarations: [
     AppComponent, 
