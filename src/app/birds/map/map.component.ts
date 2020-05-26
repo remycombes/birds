@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { fromEvent, Observable, merge, Subject } from 'rxjs';
-import { map, scan, takeLast } from 'rxjs/operators';
+import { map, scan, takeLast, throttleTime } from 'rxjs/operators';
 
 interface V2{x: number; y: number}
 

@@ -15,20 +15,20 @@
     (touchmove)="$event.preventDefault();touchMove($event)"
     (touchend)="$event.preventDefault();touchEnd($event)" -->
 
-<div style="position: fixed; top: 0; left: 0; background: rgb(207, 198, 198); z-index: 10;">
+<!-- <div style="position: fixed; top: 0; left: 0; background: rgb(207, 198, 198); z-index: 10;">
     position: {{camera.position.x + ' ' + camera.position.y}} <br>
     storedPosition: {{camera.storedPosition.x + ' ' + camera.storedPosition.y}} <br>
     mag: {{camera.mag}} <br>
     storedMag: {{camera.storedMag}} <br>
     zoom: {{camera.zoom}} <br>
     storedZoom: {{camera.storedZoom}} <br>
-</div>
+</div> -->
 
 
 <div id="map-control" class="control" 
-    (touchstart)="screenTouchStart$.next($event)"
-    (touchmove)="screenTouchMove$.next($event)"
-    (touchend)="screenTouchEnd$.next($event)"    
+    (touchstart)="$event.preventDefault(); screenTouchStart$.next($event)"
+    (touchmove)="$event.preventDefault(); screenTouchMove$.next($event)"
+    (touchend)="$event.preventDefault(); screenTouchEnd$.next($event)"    
 ></div>
 
 <!-- <div class="map" [ngStyle]="{        
