@@ -1,0 +1,11 @@
+<div>LISTE DES OISEAUX</div>
+<div *ngFor="let bird of birds$ | async | keyvalue">
+    {{bird.value.identifier}} : {{bird.value.name}} <button (click)= "deleteBird(bird.value.identifier)">Supprimer</button>
+</div>
+<hr/>
+<div>Ajouter un oiseau</div>
+<form [formGroup]="form">
+    <label for="name">Nom</label>
+    <input style="border:solid 1px grey;" type="text" formControlName="name">
+    <button (click)="addBird()">Ajouter</button>
+</form>
